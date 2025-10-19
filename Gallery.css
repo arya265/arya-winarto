@@ -1,0 +1,168 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;  
+    color: #ffffff;
+    line-height: 1.5;
+    overflow-x: hidden;  
+    padding-top: 60px;
+}
+
+.header {
+    position: fixed;
+    background-color: #fff;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1rem 2rem;
+}
+
+.header-content {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+}
+
+.name-subtitle h1 {
+    font-weight: 400;  
+    font-size: 2rem;
+    color: #323232;
+    left: 1rem;
+}
+
+.name-subtitle p {
+    font-weight: 300;
+    font-size: 1rem;
+    color: #7b7b7b;
+    margin-top: 0.05 rem;
+}
+
+.nav a {
+    color: #7b7b7b;
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+
+.portfolio {
+    margin-top: 25px;  /* Space for fixed header */
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio-item {
+    position: relative;
+    width: 100vw;
+    margin-top: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;  /* Align caption to bottom */
+}
+
+.portfolio-item img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;  /* Preserves aspect, fills viewport */
+    transition: transform 0.5s ease;  /* Smooth zoom on hover/scroll */
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.015); /*Zoom Effect*/
+}
+
+
+
+/* Caption Overlay */
+.caption {
+    position: absolute;
+    bottom: 10px;
+    left: 30px;
+    max-width: 500%;
+}
+
+.caption h2 {
+    font-weight: 400;
+    font-size: 3rem;
+    color: #fff;
+    margin: 0;
+    text-align: right;  
+}
+
+
+
+/* Footer */
+.footer {
+    padding: 2rem;
+    text-align: left;
+    background-color: rgb(255, 255, 255);
+}
+
+.footer p {
+    font-weight: 300;
+    color: #323232;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.footer p:last-child {
+    color: #323232; 
+}
+
+
+
+
+
+
+
+
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .name-subtitle h1 {
+        font-size: 1.3rem;
+    }
+    
+    .caption {
+        bottom: 1rem;
+        right: 1rem;
+        max-width: 80%;
+        padding: 0.8rem 1rem;
+    }
+    
+    .caption h2 {
+        font-size: 1rem;
+        text-align: left;  /* Stack on mobile */
+    }
+    
+    .accent-line {
+        width: 2px;  /* Thinner on mobile */
+    }
+    
+    .portfolio-item {
+        height: 70vh;  /* Shorter on mobile for better scrolling */
+    }
+    
+    .footer {
+        padding: 1rem;
+    }
+}
