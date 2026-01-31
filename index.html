@@ -47,7 +47,7 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      align-items: center; 
+      align-items: center;
       overflow: hidden;
     }
 
@@ -65,6 +65,7 @@
       left: 0;
       width: 100%;
       height: 100%;
+      background: rgba(0, 0, 0, 0.2); 
       pointer-events: none;
     }
 
@@ -73,6 +74,7 @@
       font-family: 'Times New Roman', Times, serif;
       z-index: 10;
       color: white;
+      text-shadow: 0 2px 15px rgba(0,0,0,0.3);
       top: 50%;
       left: 5%;
       transform: translateY(-50%);
@@ -112,43 +114,68 @@
       transform: translateY(-50%);
     }
 
-    /* --- DESKTOP ADJUSTMENTS --- */
+    /* POPUP STYLES */
+    #desktop-notice {
+      display: none; /* Hidden by default */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.98);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .notice-content {
+      max-width: 300px;
+    }
+
+    .notice-content h4 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    .notice-content button {
+      background: #333;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
     @media (min-width: 1024px) {
       .caption {
-        left: 150px; 
+        left: 150px;
       }
     }
 
-    /* --- MOBILE ADJUSTMENTS --- */
     @media (max-width: 768px) {
-      header {
-        padding: 0.8rem 1rem;
-      }
-
-      header h1 {
-        font-size: 1.3rem !important;
-      }
-
-      header p {
-        font-size: 0.75rem !important;
-      }
-
-      .caption h3 {
-        padding-left: 40px;
-      }
-      
-      .project-title::before {
-        width: 30px;
-      }
-
-      footer p {
-        font-size: 0.85rem;
-      }
+      header { padding: 0.8rem 1rem; }
+      header h1 { font-size: 1.3rem !important; }
+      header p { font-size: 0.75rem !important; }
+      .caption h3 { padding-left: 40px; }
+      .project-title::before { width: 30px; }
+      footer p { font-size: 0.85rem; }
     }
   </style>
 </head>
 
 <body>
+  <div id="desktop-notice">
+    <div class="notice-content">
+      <h4>For the best experience, please view on a desktop.</h4>
+      <button onclick="closeNotice()">Continue anyway</button>
+    </div>
+  </div>
+
   <header>
     <div class="columns is-mobile is-vcentered">
       <div class="column">
@@ -179,5 +206,19 @@
     <p style="margin: 0.3rem 0">arya.g.winarto@gmail.com</p>
     <p style="margin: 0.3rem 0">@aryaghilman</p>
   </footer>
+
+  <script>
+    // Show popup if on mobile/tablet (less than 1024px)
+    window.onload = function() {
+      if (window.innerWidth < 1024) {
+        document.getElementById('desktop-notice').style.display = 'flex';
+      }
+    };
+
+    // Function to close the popup
+    function closeNotice() {
+      document.getElementById('desktop-notice').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
