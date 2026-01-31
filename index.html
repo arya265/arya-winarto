@@ -19,103 +19,19 @@
   <title>Arya Winarto Gallery</title>
 
   <style>
+    :root {
+      --header-height: 80px;
+    }
+
     body {
       margin: 0;
-      padding-top: 70px;
+      padding-top: var(--header-height);
       font-family: "Inter", sans-serif;
       background-color: white;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .portfolio-item {
-      position: relative;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .portfolio-item img {
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-      display: block;
-      transition: transform 0.4s ease;
-      transform-origin: center;
-    }
-
-    .caption {
-      position: absolute;
-      font-family: 'Times New Roman', Times, serif;
-      left: 150px;
-      bottom: 40%;
-      color: white;
-    }
-
-    .caption h2 {
-      font-weight: 300;
-      font-size: 4.1rem;
-      margin: 0;
-      line-height: 1;
-    }
-
-    .caption h2 span {
-      display: block;
-      margin-top: 0.25em; 
-    }
-
-    .caption h3{
-      font-weight: 100;
-      padding-top: 10px;
-      padding-left: 60px;
-    }
-
-    .project-title {
-      position: relative;
-      padding-left: 40px;   /* space for the line */
-      font-weight: 400;
-    }
-
-    .project-title::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 65%;
-      width: 50px;          /* length of the line */
-      height: 2px;          /* thickness */
-      background-color: currentColor;
-      transform: translateY(-50%);
-    }
-
-    @media (max-width: 768px) {
-      .caption {
-        left: 15px;
-        bottom: 12px;
-      }
-
-      .caption h2 {
-        font-size: 1.4rem;
-        line-height: normal;
-      }
-
-      header h1 {
-        font-size: 1.4rem !important;
-      }
-
-      header p {
-        font-size: 0.85rem !important;
-      }
-
-      footer p {
-        font-size: 0.85rem;
-      }
-
-    }
-  </style>
-</head>
-
-<body>
-  <header
-    style="
+    header {
       position: fixed;
       top: 0;
       left: 0;
@@ -123,22 +39,130 @@
       background: white;
       padding: 1rem 2rem;
       z-index: 999;
-      border-bottom: 1px solid #ffffff;
-    "
-  >
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .portfolio-item {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center; 
+      overflow: hidden;
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      display: block;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .portfolio-item::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .caption {
+      position: absolute;
+      font-family: 'Times New Roman', Times, serif;
+      z-index: 10;
+      color: white;
+      top: 50%;
+      left: 5%;
+      transform: translateY(-50%);
+    }
+
+    .caption h2 {
+      font-weight: 300;
+      font-size: clamp(1.8rem, 7vw, 4.1rem);
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .caption h2 span {
+      display: block;
+    }
+
+    .caption h3 {
+      font-weight: 100;
+      margin-top: 1rem;
+      padding-left: 60px;
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
+      letter-spacing: 1px;
+    }
+
+    .project-title {
+      position: relative;
+    }
+
+    .project-title::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 45px;
+      height: 1px;
+      background-color: white;
+      transform: translateY(-50%);
+    }
+
+    /* --- DESKTOP ADJUSTMENTS --- */
+    @media (min-width: 1024px) {
+      .caption {
+        left: 150px; 
+      }
+    }
+
+    /* --- MOBILE ADJUSTMENTS --- */
+    @media (max-width: 768px) {
+      header {
+        padding: 0.8rem 1rem;
+      }
+
+      header h1 {
+        font-size: 1.3rem !important;
+      }
+
+      header p {
+        font-size: 0.75rem !important;
+      }
+
+      .caption h3 {
+        padding-left: 40px;
+      }
+      
+      .project-title::before {
+        width: 30px;
+      }
+
+      footer p {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
     <div class="columns is-mobile is-vcentered">
       <div class="column">
-        <h1 style="font-size: 2rem; font-weight: 500; color: #444;">
+        <h1 style="font-weight: 500; color: #444; margin-bottom: 0;">
           Arya Winarto
         </h1>
-        <p style="color: #7b7b7b; font-size: 1rem; margin-top: 0.1rem;">
+        <p style="color: #7b7b7b; margin-top: 0.1rem;">
           Street | Landscape | Architecture
         </p>
       </div>
     </div>
   </header>
 
-  <main style="display: flex; flex-direction: column; gap: 30px; margin-top: 20px;">
+  <main style="display: flex; flex-direction: column; gap: 30px;">
     <section class="portfolio-item">
       <img src="images/DSC08275.JPG" alt="København, Danmark" />
       <div class="caption">
@@ -148,11 +172,10 @@
         </h2>
         <h3 class="project-title">Project Copenhagen 001</h3>
       </div>
-
     </section>
   </main>
  
-  <footer style="padding: 2rem; background: white; color: #7b7b7b">
+  <footer style="padding: 3rem 2rem; background: white; color: #7b7b7b">
     <p style="margin: 0.3rem 0">arya.g.winarto@gmail.com</p>
     <p style="margin: 0.3rem 0">@aryaghilman</p>
   </footer>
