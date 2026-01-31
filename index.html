@@ -1,79 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Arya Winarto Gallery</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
+  />
 
-    <style>
-      body {
-        margin: 0;
-        padding-top: 70px;
-        font-family: "Inter", sans-serif;
-        background-color: white;
-      }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+    rel="stylesheet"
+  />
 
-      .portfolio-item img {
-        width: 100%;
-        height: auto;
-        transition: transform 0.4s ease;
-      }
+  <title>Arya Winarto Gallery</title>
 
-      .portfolio-item:hover img {
-        transform: scale(1.015);
-      }
+  <style>
+    body {
+      margin: 0;
+      padding-top: 70px;
+      font-family: "Inter", sans-serif;
+      background-color: white;
+    }
 
+    .portfolio-item {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      max-width: 1680px;
+      height: auto;
+      display: block;
+      transition: transform 0.4s ease;
+      transform-origin: center;
+    }
+
+    .caption {
+      position: absolute;
+      font-family: 'Times New Roman', Times, serif;
+      left: 150px;
+      bottom: 40%;
+      color: white;
+    }
+
+    .caption h2 {
+      font-weight: 300;
+      font-size: 4.1rem;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .caption h2 span {
+      display: block;
+      margin-top: 0.25em; 
+    }
+
+    .caption h3{
+      font-weight: 100;
+      padding-top: 10px;
+      padding-left: 60px;
+    }
+
+    .project-title {
+      position: relative;
+      padding-left: 40px;   /* space for the line */
+      font-weight: 400;
+    }
+
+    .project-title::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 65%;
+      width: 50px;          /* length of the line */
+      height: 2px;          /* thickness */
+      background-color: currentColor;
+      transform: translateY(-50%);
+    }
+
+    @media (max-width: 768px) {
       .caption {
-        position: absolute;
-        left: 30px;
-        bottom: 20px;
-        color: white;
+        left: 15px;
+        bottom: 12px;
       }
 
       .caption h2 {
-        font-weight: 400;
-        font-size: 3rem;
-        margin: 0;
+        font-size: 1.4rem;
+        line-height: normal;
       }
 
-      @media (max-width: 768px) {
-        .caption {
-          left: 15px;
-          bottom: 12px;
-        }
-
-        .caption h2 {
-          font-size: 1.4rem;
-        }
-
-        header h1 {
-          font-size: 1.4rem !important;
-        }
-
-        header p {
-          font-size: 0.85rem !important;
-        }
-
-        footer p {
-          font-size: 0.85rem;
-        }
+      header h1 {
+        font-size: 1.4rem !important;
       }
-    </style>
+
+      header p {
+        font-size: 0.85rem !important;
+      }
+
+      footer p {
+        font-size: 0.85rem;
+      }
+
+    }
+  </style>
 </head>
 
 <body>
@@ -86,12 +123,12 @@
       background: white;
       padding: 1rem 2rem;
       z-index: 999;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid #ffffff;
     "
   >
     <div class="columns is-mobile is-vcentered">
       <div class="column">
-        <h1 style="font-size: 2rem; font-weight: 500; color: #444444;">
+        <h1 style="font-size: 2rem; font-weight: 500; color: #444;">
           Arya Winarto
         </h1>
         <p style="color: #7b7b7b; font-size: 1rem; margin-top: 0.1rem;">
@@ -101,82 +138,20 @@
     </div>
   </header>
 
-  <main
-    style="display: flex; flex-direction: column; gap: 30px; margin-top: 20px"
-  >
-    <section
-      class="portfolio-item"
-      style="position: relative; width: 100%; overflow: hidden"
-    >
-      <img src="images/DSC07648.png" alt="Aarhus Sailboat" />
-      <div class="caption"><h2>Aarhus C, 2025</h2></div>
-    </section>
-
-    <section
-      class="portfolio-item"
-      style="position: relative; width: 100%; overflow: hidden"
-    >
-      <img src="images/DSC08348.jpg" alt="Copenhagen" />
-      <div class="caption"><h2>København</h2></div>
-    </section>
-
-    <section
-      class="portfolio-item"
-      style="position: relative; width: 100%; overflow: hidden"
-    >
-      <img src="images/DSC08004.jpg" alt="Grundtvigs Kirke" />
-      <div class="caption"><h2>Grundtvigs Kirke</h2></div>
-    </section>
-
-    <section
-      class="portfolio-item"
-      style="position: relative; width: 100%; overflow: hidden"
-    >
-      <img src="images/DSC08306.jpg" alt="Nyhavn" />
-      <div class="caption"><h2>Nyhavn</h2></div>
-    </section>
-
-    <section
-      class="portfolio-item"
-      style="position: relative; width: 100%; overflow: hidden"
-    >
-      <img src="images/DSC08319.JPG" alt="" />
-      <div class="caption"><h2></h2></div>
-    </section>
-
-    <section
-      class="portfolio-item"
-      style="position: relative; width: 100%; overflow: hidden"
-    >
+  <main style="display: flex; flex-direction: column; gap: 30px; margin-top: 20px;">
+    <section class="portfolio-item">
       <img src="images/DSC08275.JPG" alt="København, Danmark" />
-      <div class="caption"><h2>København, Danmark</h2></div>
-    </section>
+      <div class="caption">
+        <h2>
+          Streets of
+          <span>Copenhagen</span>
+        </h2>
+        <h3 class="project-title">Project Copenhagen 001</h3>
+      </div>
 
-     <section
-      class="portfolio-item"
-      style="position: relative; width: 100%; overflow: hidden"
-    >
-      <img src="images/IMG_7040.jpg" alt="The Round Tower" />
-      <div class="caption"><h2>The Round Tower</h2></div>
-    </section>
-
-     <section
-      class="portfolio-item"
-      style="position: relative; width: 100%; overflow: hidden"
-    >
-      <img src="images/DSC08503.JPG" alt="Utrecht, Nederland" />
-      <div class="caption"><h2>Utrecht, Nederland</h2></div>
-    </section>
-
-      <section
-      class="portfolio-item"
-      style="position: relative; width: 100%; overflow: hidden"
-    >
-      <img src="images/DSC08479.jpg" alt="Utrecht, Nederland" />
-      <div class="caption"><h2>Peace plays guitar</h2></div>
     </section>
   </main>
-
+ 
   <footer style="padding: 2rem; background: white; color: #7b7b7b">
     <p style="margin: 0.3rem 0">arya.g.winarto@gmail.com</p>
     <p style="margin: 0.3rem 0">@aryaghilman</p>
