@@ -72,6 +72,7 @@
       font-family: 'Times New Roman', Times, serif;
       z-index: 10;
       color: white;
+      text-shadow: 0 2px 15px rgba(0,0,0,0.3);
       top: 50%;
       left: 5%;
       transform: translateY(-50%);
@@ -109,6 +110,27 @@
       height: 1px;
       background-color: white;
       transform: translateY(-50%);
+    }
+
+    /* --- NEW 1x3 GRID SECTION --- */
+    .gallery-grid {
+      display: flex;
+      gap: 20px; /* Space between images */
+      padding: 0 20px; /* Margin from screen edges */
+      margin-bottom: 50px;
+    }
+
+    .grid-item {
+      flex: 1; /* Makes all 3 items equal width */
+    }
+
+    .grid-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      /* Square aspect ratio for a clean look - optional */
+      aspect-ratio: 2 / 1.1; 
     }
 
     /* POPUP STYLES */
@@ -197,6 +219,18 @@
         <h3 class="project-title">Project Copenhagen 001</h3>
       </div>
     </section>
+  
+    <section class="gallery-grid">
+      <div class="grid-item">
+        <img src="images/DSC08319.JPG" alt="Gallery Image 1" />
+      </div>
+      <div class="grid-item">
+        <img src="images/DSC08348.jpg" alt="Gallery Image 2" />
+      </div>
+      <div class="grid-item">
+        <img src="images/DSC07799.jpg" alt="Gallery Image 3" />
+      </div>
+    </section>
   </main>
  
   <footer style="padding: 3rem 2rem; background: white; color: #7b7b7b">
@@ -212,6 +246,7 @@
       }
     };
 
+    // Function to close the popup
     function closeNotice() {
       document.getElementById('desktop-notice').style.display = 'none';
     }
