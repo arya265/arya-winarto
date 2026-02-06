@@ -3,24 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
-  />
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
 
   <title>Arya Winarto Gallery</title>
 
   <style>
     :root {
       --header-height: 80px;
+      --gap: 20px;
     }
 
     body {
@@ -41,12 +34,10 @@
       z-index: 999;
     }
 
+    /* --- COMMON PORTFOLIO STYLES --- */
     .portfolio-item {
       position: relative;
       width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       overflow: hidden;
     }
 
@@ -57,25 +48,10 @@
       object-fit: cover;
     }
 
-    .portfolio-item::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
     .caption {
       position: absolute;
       font-family: 'Times New Roman', Times, serif;
       z-index: 10;
-      color: white;
-      text-shadow: 0 2px 15px rgba(0,0,0,0.3);
-      top: 50%;
-      left: 5%;
-      transform: translateY(-50%);
     }
 
     .caption h2 {
@@ -85,9 +61,7 @@
       line-height: 1.1;
     }
 
-    .caption h2 span {
-      display: block;
-    }
+    .caption h2 span { display: block; }
 
     .caption h3 {
       font-weight: 100;
@@ -95,9 +69,6 @@
       padding-left: 60px;
       font-size: clamp(0.85rem, 2vw, 1.1rem);
       letter-spacing: 1px;
-    }
-
-    .project-title {
       position: relative;
     }
 
@@ -108,81 +79,76 @@
       top: 50%;
       width: 45px;
       height: 1px;
-      background-color: white;
+      background-color: currentColor;
       transform: translateY(-50%);
     }
 
-    /* --- NEW 1x3 GRID SECTION --- */
-    .gallery-grid {
+    /* --- AMSTERDAM SPECIFIC GRID (THE SCREENSHOT LAYOUT) --- */
+    .amsterdam-grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr; /* Asymmetric split */
+      gap: var(--gap);
+      padding: 0 var(--gap);
+      margin-top: 30px;
+    }
+
+    .amsterdam-grid .caption {
+      top: 10%; /* Specific top-left placement for Amsterdam */
+      left: 8%;
+    }
+
+    .side-stack {
       display: flex;
-      gap: 20px; /* Space between images */
-      padding: 0 20px; /* Margin from screen edges */
-      margin-bottom: 50px;
+      flex-direction: column;
+      gap: var(--gap);
     }
 
-    .grid-item {
-      flex: 1; /* Makes all 3 items equal width */
-    }
-
-    .grid-item img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-      /* Square aspect ratio for a clean look - optional */
-      aspect-ratio: 2 / 1.1; 
-    }
-
-    /* POPUP STYLES */
-    #desktop-notice {
-      display: none; /* Hidden by default */
-      position: fixed;
-      top: 0;
-      left: 0;
+    .stack-item img {
       width: 100%;
       height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* --- COPENHAGEN SPECIFIC (FULL WIDTH) --- */
+    .copenhagen-section {
+      margin-bottom: 30px;
+    }
+
+    .copenhagen-section .caption {
+      top: 50%;
+      left: 5%;
+      transform: translateY(-50%);
+    }
+
+    .gallery-grid {
+      display: flex;
+      gap: 20px;
+      padding: 0 20px;
+      margin-top: 20px;
+    }
+
+    .grid-item { flex: 1; }
+
+    /* POPUP & UTILS */
+    #desktop-notice {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(255, 255, 255, 0.98);
       z-index: 10000;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 2rem;
-    }
-
-    .notice-content {
-      max-width: 300px;
-    }
-
-    .notice-content h4 {
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: #333;
-      margin-bottom: 1rem;
-    }
-
-    .notice-content button {
-      background: #333;
-      color: white;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer;
-      font-size: 0.9rem;
     }
 
     @media (min-width: 1024px) {
-      .caption {
-        left: 150px;
-      }
+      .copenhagen-section .caption { left: 150px; }
     }
 
     @media (max-width: 768px) {
-      header { padding: 0.8rem 1rem; }
-      header h1 { font-size: 1.3rem !important; }
-      header p { font-size: 0.75rem !important; }
-      .caption h3 { padding-left: 40px; }
-      .project-title::before { width: 30px; }
-      footer p { font-size: 0.85rem; }
+      .amsterdam-grid { grid-template-columns: 1fr; }
+      .side-stack { flex-direction: row; }
     }
   </style>
 </head>
@@ -190,46 +156,55 @@
 <body>
   <div id="desktop-notice">
     <div class="notice-content">
-      <h4>For the best experience, please view on a desktop.</h4>
-      <button onclick="closeNotice()">Continue anyway</button>
+      <h4 style="margin-bottom:1rem;">For the best experience, please view on a desktop.</h4>
+      <button onclick="closeNotice()" style="background:#333; color:white; border:none; padding:0.8rem 1.5rem; cursor:pointer;">Continue anyway</button>
     </div>
   </div>
 
   <header>
     <div class="columns is-mobile is-vcentered">
       <div class="column">
-        <h1 style="font-weight: 500; color: #444; margin-bottom: 0;">
-          Arya Winarto
-        </h1>
-        <p style="color: #7b7b7b; margin-top: 0.1rem;">
-          Street | Landscape | Architecture
-        </p>
+        <h1 style="font-weight: 500; color: #444; margin-bottom: 0;">Arya Winarto</h1>
+        <p style="color: #7b7b7b; margin-top: 0.1rem;">Street | Landscape | Architecture</p>
       </div>
     </div>
   </header>
 
-  <main style="display: flex; flex-direction: column; gap: 30px;">
+  <main class="copenhagen-section">
     <section class="portfolio-item">
       <img src="images/DSC08275.JPG" alt="København, Danmark" />
-      <div class="caption">
-        <h2>
-          Streets of
-          <span>Copenhagen</span>
-        </h2>
+      <div class="caption" style="color: white;">
+        <h2>Streets of<span>Copenhagen</span></h2>
         <h3 class="project-title">Project Copenhagen 001</h3>
       </div>
     </section>
   
     <section class="gallery-grid">
-      <div class="grid-item">
-        <img src="images/DSC08319.JPG" alt="Gallery Image 1" />
+      <div class="grid-item"><img src="images/DSC08319.JPG" alt="Gallery 1" style="width:100%; aspect-ratio:2/1.1; object-fit:cover;"/></div>
+      <div class="grid-item"><img src="images/DSC08348.jpg" alt="Gallery 2" style="width:100%; aspect-ratio:2/1.1; object-fit:cover;"/></div>
+      <div class="grid-item"><img src="images/DSC07799.jpg" alt="Gallery 3" style="width:100%; aspect-ratio:2/1.1; object-fit:cover;"/></div>
+    </section>
+  </main>
+
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <main class="amsterdam-grid">
+    <section class="portfolio-item">
+      <img src="images/DSC08885 2 2.jpg" alt="Amsterdam, Nederlands" />
+      <div class="caption" style="color: #333;">
+        <h2>Amsterdam<span>Centraal</span></h2>
+        <h3 class="project-title">Eindhoven en Delft 002</h3>
       </div>
-      <div class="grid-item">
-        <img src="images/DSC08348.jpg" alt="Gallery Image 2" />
-      </div>
-      <div class="grid-item">
-        <img src="images/DSC07799.jpg" alt="Gallery Image 3" />
-      </div>
+    </section>
+  
+    <section class="side-stack">
+      <div class="stack-item"><img src="images/DSC08849.jpg" alt="Side 1" /></div>
+      <div class="stack-item"><img src="images/DSC08734.jpg" alt="Side 2" /></div>
+      <div class="stack-item"><img src="images/DSC08863.jpg" alt="Side 3" /></div>
+      <div class="stack-item"><img src="images/DSC08888.jpg" alt="Side 4" /></div>
     </section>
   </main>
  
@@ -239,17 +214,10 @@
   </footer>
 
   <script>
-    // Show popup if on mobile/tablet (less than 1024px)
     window.onload = function() {
-      if (window.innerWidth < 1024) {
-        document.getElementById('desktop-notice').style.display = 'flex';
-      }
+      if (window.innerWidth < 1024) { document.getElementById('desktop-notice').style.display = 'flex'; }
     };
-
-    // Function to close the popup
-    function closeNotice() {
-      document.getElementById('desktop-notice').style.display = 'none';
-    }
+    function closeNotice() { document.getElementById('desktop-notice').style.display = 'none'; }
   </script>
 </body>
 </html>
