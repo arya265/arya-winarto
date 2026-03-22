@@ -6,35 +6,142 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <title>Arya Winarto Gallery</title>
 
   <style>
     :root {
       --header-height: 80px;
+      --bar-height: 36px;
       --gap: 20px;
+      --serif: 'EB Garamond', 'Times New Roman', Times, serif;
+      --sans: 'DM Sans', sans-serif;
+      --ink:   #1a1a18;
+      --ink-2: #6b6b67;
+      --ink-3: #b0aea9;
+      --rule:  rgba(0,0,0,0.08);
     }
 
     body {
       margin: 0;
-      padding-top: var(--header-height);
-      font-family: "Inter", sans-serif;
+      padding-top: calc(var(--header-height) + var(--bar-height));
+      font-family: var(--sans);
       background-color: white;
       -webkit-font-smoothing: antialiased;
     }
 
-    header {
+    /* ─── ANNOUNCEMENT BAR ─── */
+    .announce-bar {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: white;
-      padding: 1rem 2rem;
-      z-index: 999;
+      top: 0; left: 0; width: 100%;
+      height: var(--bar-height);
+      background: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      z-index: 1000;
     }
 
-    /* --- COMMON PORTFOLIO STYLES --- */
+    .announce-bar span {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: rgb(255, 255, 255);
+      letter-spacing: 0.02em;
+    }
+
+    .announce-bar a {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: #ffffff;
+      text-decoration: none;
+      border-bottom: 0.5px solid rgba(255,255,255,0.35);
+      padding-bottom: 1px;
+      letter-spacing: 0.02em;
+      transition: border-color 0.2s;
+    }
+
+    .announce-bar a:hover { border-color: #ffffff; }
+
+    .announce-close {
+      position: absolute;
+      right: 1.2rem;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.8rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.2s;
+    }
+
+    .announce-close:hover { color: #ffffff; }
+
+    /* ─── HEADER ─── */
+    header {
+      position: fixed;
+      top: var(--bar-height);
+      left: 0;
+      width: 100%;
+      height: var(--header-height);
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid var(--rule);
+      padding: 0 2.5rem;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-name {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    .header-sub {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--ink-2);
+      margin-top: 2px;
+      font-weight: 300;
+    }
+
+    /* ─── NAV ─── */
+    .site-nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .site-nav a {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      color: var(--ink-2);
+      text-decoration: none;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .site-nav a:hover { color: var(--ink); }
+
+    .site-nav a.active {
+      color: var(--ink);
+      font-weight: 500;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 1px;
+    }
+
+    /* ─── PORTFOLIO ITEMS ─── */
     .portfolio-item {
       position: relative;
       width: 100%;
@@ -50,12 +157,12 @@
 
     .caption {
       position: absolute;
-      font-family: 'Times New Roman', Times, serif;
+      font-family: var(--serif);
       z-index: 10;
     }
 
     .caption h2 {
-      font-weight: 300;
+      font-weight: 400;
       font-size: clamp(1.8rem, 7vw, 4.1rem);
       margin: 0;
       line-height: 1.1;
@@ -64,11 +171,13 @@
     .caption h2 span { display: block; }
 
     .caption h3 {
-      font-weight: 100;
+      font-family: var(--sans);
+      font-weight: 300;
       margin-top: 1rem;
       padding-left: 60px;
-      font-size: clamp(0.85rem, 2vw, 1.1rem);
-      letter-spacing: 1px;
+      font-size: clamp(0.75rem, 2vw, 0.85rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
       position: relative;
     }
 
@@ -83,17 +192,17 @@
       transform: translateY(-50%);
     }
 
-    /* --- AMSTERDAM SPECIFIC GRID (THE SCREENSHOT LAYOUT) --- */
+    /* ─── AMSTERDAM GRID ─── */
     .amsterdam-grid {
       display: grid;
-      grid-template-columns: 1.8fr 1fr; /* Asymmetric split */
+      grid-template-columns: 1.8fr 1fr;
       gap: var(--gap);
       padding: 0 var(--gap);
       margin-top: 30px;
     }
 
     .amsterdam-grid .caption {
-      top: 10%; /* Specific top-left placement for Amsterdam */
+      top: 10%;
       left: 8%;
     }
 
@@ -103,6 +212,8 @@
       gap: var(--gap);
     }
 
+    .stack-item { overflow: hidden; }
+
     .stack-item img {
       width: 100%;
       height: 100%;
@@ -110,10 +221,8 @@
       display: block;
     }
 
-    /* --- COPENHAGEN SPECIFIC (FULL WIDTH) --- */
-    .copenhagen-section {
-      margin-bottom: 30px;
-    }
+    /* ─── COPENHAGEN ─── */
+    .copenhagen-section { margin-bottom: 30px; }
 
     .copenhagen-section .caption {
       top: 50%;
@@ -128,18 +237,63 @@
       margin-top: 20px;
     }
 
-    .grid-item { flex: 1; }
+    .grid-item {
+      flex: 1;
+      overflow: hidden;
+    }
 
-    /* POPUP & UTILS */
+    /* ─── POPUP ─── */
     #desktop-notice {
       display: none;
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(255, 255, 255, 0.98);
+      background: rgba(255,255,255,0.98);
       z-index: 10000;
       justify-content: center;
       align-items: center;
       text-align: center;
+      font-family: var(--sans);
+    }
+
+    /* ─── IMAGE HOVER LIFT ─── */
+    .portfolio-item img,
+    .stack-item img,
+    .grid-item img {
+      transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+
+    .portfolio-item:hover img,
+    .stack-item:hover img,
+    .grid-item:hover img {
+      transform: scale(1.04) translateY(-6px);
+    }
+
+    /* ─── PAGE TRANSITIONS ─── */
+    @keyframes pageEnter {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pageExit {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-44px); }
+    }
+
+    body {
+      animation: pageEnter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+
+    body.leaving {
+      animation: pageExit 0.38s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+      pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body, body.leaving { animation: none; }
+      .portfolio-item img,
+      .stack-item img,
+      .grid-item img { transition: none; }
     }
 
     @media (min-width: 1024px) {
@@ -147,29 +301,46 @@
     }
 
     @media (max-width: 768px) {
+      header { padding: 0 1.2rem; }
       .amsterdam-grid { grid-template-columns: 1fr; }
       .side-stack { flex-direction: row; }
+      .site-nav { gap: 1.2rem; }
+      .announce-close { right: 0.8rem; }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- ─── ANNOUNCEMENT BAR ─── -->
+  <div class="announce-bar" id="announce-bar">
+    <span>View more of my work on</span>
+    <a href="https://unsplash.com/@arya47" target="_blank">Unsplash ↗</a>
+    <button class="announce-close" onclick="closeBar()" aria-label="Dismiss">✕</button>
+  </div>
+
+  <!-- ─── DESKTOP NOTICE ─── -->
   <div id="desktop-notice">
     <div class="notice-content">
-      <h4 style="margin-bottom:1rem;">For the best experience, please view on a desktop.</h4>
-      <button onclick="closeNotice()" style="background:#333; color:white; border:none; padding:0.8rem 1.5rem; cursor:pointer;">Continue anyway</button>
+      <h4 style="margin-bottom:1rem; font-family:var(--sans); font-weight:400;">For the best experience, please view on a desktop.</h4>
+      <button onclick="closeNotice()" style="background:#1a1a18; color:white; border:none; padding:0.8rem 1.5rem; cursor:pointer; font-family:var(--sans); font-size:0.8rem; letter-spacing:0.05em;">Continue anyway</button>
     </div>
   </div>
 
+  <!-- ─── HEADER ─── -->
   <header>
-    <div class="columns is-mobile is-vcentered">
-      <div class="column">
-        <h1 style="font-weight: 500; color: #444; margin-bottom: 0;">Arya Winarto</h1>
-        <p style="color: #7b7b7b; margin-top: 0.1rem;">Street | Landscape | Architecture</p>
-      </div>
+    <div>
+      <h1 class="header-name">Arya Winarto</h1>
+      <p class="header-sub">Street · Landscape · Architecture</p>
     </div>
+    <nav class="site-nav">
+      <a href="index.html" class="active">Gallery</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="about.html">About</a>
+    </nav>
   </header>
 
+  <!-- ─── COPENHAGEN ─── -->
   <main class="copenhagen-section">
     <section class="portfolio-item">
       <img src="images/DSC08275.JPG" alt="København, Danmark" />
@@ -178,7 +349,7 @@
         <h3 class="project-title">Project Copenhagen 001</h3>
       </div>
     </section>
-  
+
     <section class="gallery-grid">
       <div class="grid-item"><img src="images/DSC08319.JPG" alt="Gallery 1" style="width:100%; aspect-ratio:2/1.1; object-fit:cover;"/></div>
       <div class="grid-item"><img src="images/DSC08348.jpg" alt="Gallery 2" style="width:100%; aspect-ratio:2/1.1; object-fit:cover;"/></div>
@@ -186,11 +357,9 @@
     </section>
   </main>
 
-  <br>
-  <br>
-  <br>
-  <br>
+  <br><br><br><br>
 
+  <!-- ─── AMSTERDAM ─── -->
   <main class="amsterdam-grid">
     <section class="portfolio-item">
       <img src="images/DSC08885 2 2.jpg" alt="Amsterdam, Nederlands" />
@@ -199,25 +368,57 @@
         <h3 class="project-title">Eindhoven en Delft 002</h3>
       </div>
     </section>
-  
+
     <section class="side-stack">
       <div class="stack-item"><img src="images/DSC08849.jpg" alt="Side 1" /></div>
       <div class="stack-item"><img src="images/DSC08734.jpg" alt="Side 2" /></div>
       <div class="stack-item"><img src="images/DSC08863.jpg" alt="Side 3" /></div>
-      <div class="stack-item"><img src="images/DSC08888.JPG" alt="Side 4" /></div>
+      <div class="stack-item"><img src="images/DSC08888.jpg" alt="Side 4" /></div>
     </section>
   </main>
- 
-  <footer style="padding: 3rem 2rem; background: white; color: #7b7b7b">
+
+  <footer style="padding: 3rem 2rem; background: white; color: var(--ink-2); font-family: var(--sans); font-weight: 300; font-size: 0.8rem;">
     <p style="margin: 0.3rem 0">arya.g.winarto@gmail.com</p>
     <p style="margin: 0.3rem 0">@aryaghilman</p>
   </footer>
 
   <script>
+    // ─── Announcement bar dismiss ───
+    function closeBar() {
+      var bar = document.getElementById('announce-bar');
+      bar.style.transition = 'opacity 0.25s, transform 0.25s';
+      bar.style.opacity = '0';
+      bar.style.transform = 'translateY(-100%)';
+      setTimeout(function() {
+        bar.style.display = 'none';
+        document.querySelector('header').style.top = '0';
+        document.body.style.paddingTop = 'var(--header-height)';
+      }, 260);
+    }
+
+    // ─── Desktop notice ───
     window.onload = function() {
-      if (window.innerWidth < 1024) { document.getElementById('desktop-notice').style.display = 'flex'; }
+      if (window.innerWidth < 1024) {
+        document.getElementById('desktop-notice').style.display = 'flex';
+      }
     };
-    function closeNotice() { document.getElementById('desktop-notice').style.display = 'none'; }
+    function closeNotice() {
+      document.getElementById('desktop-notice').style.display = 'none';
+    }
+
+    // ─── Page-exit transition (internal links only) ───
+    document.querySelectorAll('.site-nav a:not([target="_blank"])').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var href = this.getAttribute('href');
+        if (!href || href === '#') return;
+        e.preventDefault();
+        document.body.classList.add('leaving');
+        setTimeout(function() {
+          window.location.href = href;
+        }, 380);
+      });
+    });
   </script>
+
 </body>
 </html>
