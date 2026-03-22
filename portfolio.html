@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arya Winarto — Engineering</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --header-height: 80px;
+      --gap: 20px;
+      --serif: 'EB Garamond', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+      --ink:    #1a1a18;
+      --ink-2:  #6b6b67;
+      --ink-3:  #7e7e7e;
+      --rule:   rgba(0,0,0,0.10);
+      --bg:     #ffffff;
+      --bg-2:   #f7f6f4;
+      --accent: #2a4a3e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      padding-top: var(--header-height);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid var(--rule);
+      z-index: 999;
+      padding: 0 2.5rem;
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-name { font-family: var(--sans); font-weight: 500; font-size: 0.9rem; color: var(--ink); letter-spacing: 0.01em; }
+    .header-sub  { font-size: 0.72rem; color: var(--ink-2); margin-top: 2px; font-weight: 300; }
+
+    nav { display: flex; gap: 2rem; align-items: center; }
+    nav a { font-size: 0.8rem; color: var(--ink-2); text-decoration: none; font-weight: 400; letter-spacing: 0.02em; transition: color 0.2s; }
+    nav a:hover { color: var(--ink); }
+    nav a.active { color: var(--ink); font-weight: 500; border-bottom: 1px solid var(--ink); padding-bottom: 1px; }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 5rem 2.5rem 4rem;
+      border-bottom: 0.5px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: end;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s ease forwards 0.1s;
+    }
+
+    .hero-title { font-family: var(--serif); font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 400; line-height: 1.05; color: var(--ink); }
+    .hero-title em { font-style: italic; color: var(--accent); }
+    .hero-body { font-size: 0.85rem; color: var(--ink-2); line-height: 1.85; margin-top: 1.4rem; font-weight: 300; max-width: 380px; }
+    .hero-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.7rem; }
+
+    .meta-pill {
+      font-size: 0.72rem; color: var(--bg); border: 0.5px solid var(--rule);
+      border-radius: 40px; padding: 0.3rem 0.9rem; font-weight: 300;
+      background: var(--ink); letter-spacing: 0.01em; text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    a.meta-pill:hover { background: var(--bg); color: #000000; border-color: var(--ink); }
+    .hero-links { display: flex; align-items: center; gap: 0.6rem; margin-top: 1.6rem; flex-wrap: wrap; }
+
+    /* ─── SECTION LABELS ─── */
+    .section-head { display: flex; align-items: center; gap: 1rem; padding: 1.4rem 2.5rem 1.2rem; }
+    .section-head span { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; font-weight: 400; }
+    .section-rule { flex: 1; height: 0.5px; background: var(--rule); }
+
+    /* ─── FEATURED ─── */
+    .featured {
+      border-top: 0.5px solid var(--rule);
+      border-bottom: 0.5px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s ease forwards 0.25s;
+    }
+
+    .feat-visual {
+      border-right: 0.5px solid var(--rule);
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .feat-visual img { width: 100%; height: auto; object-fit: contain; display: block; transition: transform 0.6s ease; }
+    .feat-visual:hover img { transform: scale(1.02); }
+
+    .feat-badge {
+      position: absolute; top: 1.2rem; left: 1.2rem;
+      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+      background: rgba(255,255,255,0.92); border: 0.5px solid var(--rule);
+      padding: 0.25rem 0.7rem; color: var(--ink-2);
+    }
+
+    .feat-content { padding: 2.8rem 2.5rem; display: flex; flex-direction: column; justify-content: space-between; }
+    .feat-title { font-family: var(--serif); font-size: clamp(1.4rem, 2.2vw, 1.9rem); font-weight: 400; line-height: 1.2; margin-bottom: 1rem; }
+    .feat-desc { font-size: 0.82rem; color: var(--ink-2); line-height: 1.85; font-weight: 300; flex: 1; }
+    .feat-result { margin-top: 1.8rem; padding: 1rem 1.2rem; background: var(--bg-2); border-left: 2px solid var(--accent); }
+    .feat-result-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-3); margin-bottom: 0.3rem; }
+    .feat-result-val { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); font-weight: 400; }
+    .feat-tags { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+    /* ─── PROJECT GRID ─── */
+    .project-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: 0.5px solid var(--rule); }
+
+    .project-card {
+      padding: 2rem 2.5rem;
+      border-bottom: 0.5px solid var(--rule);
+      transition: background 0.2s;
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    .project-card.visible { animation: fadeUp 0.5s ease forwards; }
+    .project-card:nth-child(odd) { border-right: 0.5px solid var(--rule); }
+    .project-card:hover { background: var(--bg-2); }
+
+    /* ─── W3SCHOOLS SLIDESHOW ─── */
+    /* Outer wrapper — sits where the image used to be */
+    .slideshow-wrap {
+      position: relative;
+      width: 100%;
+      margin-bottom: 1.2rem;
+    }
+
+    /* Each slide: hidden by default, shown when .active */
+    .w3-slide {
+      display: none;
+      position: relative;
+    }
+    .w3-slide.active {
+      display: block;
+    }
+
+    /* The image inside each slide */
+    .w3-slide img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+      border: 0.5px solid var(--rule);
+      transition: transform 0.5s ease;
+    }
+    .project-card:hover .w3-slide.active img {
+      transform: scale(1.03);
+    }
+
+    /* Prev / Next buttons — appear on hover over the wrap */
+    .w3-prev, .w3-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.88);
+      border: none;
+      color: var(--ink);
+      font-size: 1rem;
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 2;
+    }
+    .slideshow-wrap:hover .w3-prev,
+    .slideshow-wrap:hover .w3-next { opacity: 1; }
+    .w3-prev { left: 0; }
+    .w3-next { right: 0; }
+    .w3-prev:hover, .w3-next:hover { background: rgba(255,255,255,1); }
+
+    /* Dot indicators — W3Schools style */
+    .w3-dots {
+      text-align: center;
+      padding: 6px 0 0;
+    }
+    .w3-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--ink-3);
+      margin: 0 3px;
+      cursor: pointer;
+      opacity: 0.4;
+      transition: opacity 0.2s, background 0.2s;
+      border: none;
+      padding: 0;
+    }
+    .w3-dot.active {
+      background: var(--ink);
+      opacity: 1;
+    }
+    /* Hide dots when only 1 image */
+    .w3-dots:empty { display: none; }
+
+    .card-num   { font-family: var(--serif); font-style: italic; font-size: 0.8rem; color: var(--ink-3); margin-bottom: 0.4rem; }
+    .card-title { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; line-height: 1.25; margin-bottom: 0.6rem; }
+    .card-desc  { font-size: 0.78rem; color: var(--ink-2); line-height: 1.8; font-weight: 300; margin-bottom: 1rem; }
+
+    /* ─── TAGS ─── */
+    .tag  { font-size: 0.65rem; letter-spacing: 0.06em; color: var(--ink-3); border: 0.5px solid var(--rule); padding: 0.2rem 0.55rem; font-weight: 400; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+    /* ─── PROCESS STRIP ─── */
+    .process-strip { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 0.5px solid var(--rule); border-bottom: 0.5px solid var(--rule); background: var(--bg-2); }
+    .process-step { padding: 2rem 2rem 2rem 2.5rem; border-right: 0.5px solid var(--rule); }
+    .process-step:last-child { border-right: none; }
+    .process-n     { font-family: var(--serif); font-style: italic; font-size: 2.2rem; color: var(--rule); line-height: 1; margin-bottom: 0.5rem; }
+    .process-label { font-size: 0.78rem; font-weight: 500; color: var(--ink); margin-bottom: 0.4rem; }
+    .process-desc  { font-size: 0.75rem; color: var(--ink-2); line-height: 1.7; font-weight: 300; }
+
+    /* ─── SKILLS STRIP ─── */
+    .skills-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 0.5px solid var(--rule); border-bottom: 0.5px solid var(--rule); }
+    .skill-col { padding: 1.6rem 2.5rem; border-right: 0.5px solid var(--rule); }
+    .skill-col:last-child { border-right: none; }
+    .skill-col-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-3); margin-bottom: 0.8rem; }
+
+    /* ─── FOOTER ─── */
+    footer { padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; border-top: 0.5px solid var(--rule); }
+    .footer-contact { font-size: 0.72rem; color: var(--ink-3); margin-top: 2px; font-weight: 300; }
+    .footer-links   { display: flex; gap: 1.5rem; }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp    { to { opacity: 1; transform: translateY(0); } }
+    @keyframes pageEnter { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pageExit  { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-40px); } }
+
+    body { animation: pageEnter 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+    body.leaving { animation: pageExit 0.35s cubic-bezier(0.55, 0, 1, 0.45) forwards; pointer-events: none; }
+    @media (prefers-reduced-motion: reduce) { body, body.leaving { animation: none; } }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      header { padding: 0 1.2rem; }
+      nav { gap: 1rem; }
+      .hero { grid-template-columns: 1fr; padding: 3rem 1.2rem 2.5rem; }
+      .hero-right { align-items: flex-start; }
+      .featured { grid-template-columns: 1fr; }
+      .feat-visual { border-right: none; border-bottom: 0.5px solid var(--rule); }
+      .feat-content { padding: 1.8rem 1.2rem; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-card:nth-child(odd) { border-right: none; }
+      .project-card { padding: 1.8rem 1.2rem; }
+      .skills-strip { grid-template-columns: 1fr; }
+      .skill-col { border-right: none; border-bottom: 0.5px solid var(--rule); }
+      .skill-col:last-child { border-bottom: none; }
+      .process-strip { grid-template-columns: 1fr 1fr; }
+      .process-step:nth-child(2) { border-right: none; }
+      .process-step:nth-child(3) { border-top: 0.5px solid var(--rule); }
+      .process-step:nth-child(4) { border-top: 0.5px solid var(--rule); border-right: none; }
+      .section-head { padding: 1.2rem 1.2rem 1rem; }
+      footer { flex-direction: column; gap: 1rem; align-items: flex-start; padding: 1.5rem 1.2rem; }
+    }
+
+    /* ─── EDUCATION STRIP ─── */
+    .education-strip {
+      border-top: 0.5px solid var(--rule);
+      border-bottom: 0.5px solid var(--rule);
+    }
+ 
+    .edu-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2.5rem;
+      padding: 2rem 2.5rem;
+      border-bottom: 0.5px solid var(--rule);
+      align-items: start;
+    }
+ 
+    .edu-item:last-child { border-bottom: none; }
+ 
+    .edu-year {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.82rem;
+      color: var(--ink-3);
+      padding-top: 0.1rem;
+      white-space: nowrap;
+    }
+ 
+    .edu-degree {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+    }
+ 
+    .edu-school {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--ink-2);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.7rem;
+    }
+ 
+    .edu-desc {
+      font-size: 0.78rem;
+      color: var(--ink-2);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+        .edu-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    }
+
+    .edu-list li {
+    font-size: 0.72rem;
+    color: var(--ink-3);
+    border: 0.5px solid var(--rule);
+    padding: 0.2rem 0.55rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── HEADER ─── -->
+  <header>
+    <div>
+      <div class="header-name">Arya Winarto</div>
+      <div class="header-sub">Portfolio</div>
+    </div>
+    <nav>
+      <a href="index Redesigned.html">Gallery</a>
+      <a href="portfolio.html" class="active">Portfolio</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div>
+      <h1 class="hero-title">Hi,<br><em>I'm Arya!</em></h1>
+      <p class="hero-body">
+        An undergraduate electronics and instrumentation student at Universitas Gadjah Mada,
+        focused on bridging hardware and software — from sensor design to edge deployment.
+      </p>
+      <div class="hero-links">
+        <span style="font-size:0.72rem; color:var(--ink-2); font-weight:300; letter-spacing:0.06em;">Let's connect —</span>
+        <a href="https://www.linkedin.com/in/aryawinarto/" target="_blank" class="meta-pill">LinkedIn ↗</a>
+        <a href="underconstruction.html" class="meta-pill">CV ↗</a>
+        <!-- <a href="https://mail.google.com/mail/?view=cm&to=arya.g.winarto@gmail.com" target="_blank" class="meta-pill">Email ↗</a> -->
+      </div>
+    </div>
+    <div class="hero-right"></div>
+  </section>
+
+  <!-- ─── FEATURED ─── -->
+  <div class="section-head">
+    <span style="color: var(--ink); font-weight: 500;">Featured Project</span>
+    <div class="section-rule"></div>
+  </div>
+
+  <article class="featured">
+    <div class="feat-visual">
+        <div class="slideshow-wrap">
+            <div class="w3-slide active">
+              <img src="images/Zeppelin.png" alt="Zeppelin render" />
+            </div>
+            <div class="w3-slide">
+              <img src="images/WhatsApp Image 2025-09-25 at 09.15.58.jpeg" alt="Project photo" />
+            </div>
+            <button class="w3-prev" onclick="plusSlides(this, -1)">&#10094;</button>
+            <button class="w3-next" onclick="plusSlides(this,  1)">&#10095;</button>
+          </div>
+          <div class="w3-dots"></div>
+          <div class="feat-badge">Zeppelin DIKE Capstone · 2025</div>
+        </div>
+    <div class="feat-content">
+      <div>
+        <h2 class="feat-title">Real-time Carbon Monoxide Monitoring Network</h2>
+        <p class="feat-desc">
+            Led hardware design and network architecture for a 10-node real-time CO monitoring system, 
+            defining sensor network topology and signal pipeline from transducer to dashboard. 
+            Proposed a spatial interpolation ML model to predict air quality in uncovered zones — 
+            framing the core assumption of environmental homogeneity between nodes and specifying the 
+            methodology adopted by the team.
+        </p>
+        <br>
+        <p class="feat-desc">
+            Motivated by the need to map harmful atmospheric activity at an urban scale-especially 
+            in outdoor campus areas- the system's pollution pattern data directly informs transport 
+            optimisation , urban planning, and environmental regulation.
+        </p>
+        <div class="feat-result">
+          <div class="feat-result-label">Key result</div>
+          <div class="feat-result-val">Real-time air quality monitoring</div>
+        </div>
+      </div>
+      <div class="feat-tags tags" style="margin-top: 1.5rem;">
+        <span class="tag">C++</span>
+        <span class="tag">Autodesk Fusion</span>
+        <span class="tag">Hardware Assembly</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── PROJECT GRID ─── -->
+  <div class="section-head">
+    <span style="color: var(--ink); font-weight: 500;">All Projects</span>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="project-grid">
+
+    <!--
+      HOW TO ADD MULTIPLE IMAGES:
+      Each .w3-slide is one image. Add as many as you like.
+      The JS handles showing/hiding and the dots automatically.
+    -->
+
+    <!-- Card 1 -->
+    <article class="project-card">
+        <div class="slideshow-wrap">
+            <div class="w3-slide active">
+              <img src="images/Screenshot 2026-03-21 at 17.44.48.png" alt="First view" />
+            </div>
+            <div class="w3-slide">
+              <img src="images/Group 562.png" alt="Second view" />
+            </div>
+            <div class="w3-slide">
+                <img src="images/Group 563.png" alt="Third view" />
+            </div>
+        <button class="w3-prev" onclick="plusSlides(this, -1)">&#10094;</button>
+        <button class="w3-next" onclick="plusSlides(this,  1)">&#10095;</button>
+        </div>
+      <div class="w3-dots"></div>
+      <h3 class="card-title">Predicting CO2 Emission from an Offshore Gas Turbine Using Deep Learning: A Dense Neural Network Approach</h3>
+      <p class="card-desc">
+        Following the 3-model comparison (Linear Regression, Decision Tree, XGBoost), a Dense Neural Network was introduced to investigate 
+        wether deep learning could further improve predictive accuracy on the CO2 emission task. The 3 layer architecture (64 → 32 → 16 units, ELU activation), 
+        achieved R-Squared = 0.981 and RMSE = 0.494. L1 regularisation was applied accross all hidden layers to suppress redundant feature weights - directly addressing
+        the severe multicolinearity identified in the sensor data - and early stopping to halt training and peak validation performance.
+      </p>
+      <br>
+      <p class="card-desc">
+        Future work targets edge deployment on low-cost microcontrollers such as the ESP32-P4, eliminating cloud dependency for real-time inference.
+      </p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">TensorFlow</span>
+        <span class="tag">Keras</span>
+      </div>
+    </article>
+
+    <!-- Card 2 -->
+    <article class="project-card">
+      <div class="slideshow-wrap">
+        <div class="w3-slide active">
+          <img src="images/CorrelationMatrix.png" alt="ML comparison" />
+        </div>
+        <div class="w3-slide">
+            <img src="images/tree_plot.png" alt="Second view" />
+        </div>
+        <div class="w3-slide">
+            <img src="images/xgb_plot.png" alt="Third view" />
+        </div>
+        <div class="w3-slide">
+            <img src="images/lnrregr_plot.png" alt="Fourth view" />
+        </div>
+        <button class="w3-prev" onclick="plusSlides(this, -1)">&#10094;</button>
+        <button class="w3-next" onclick="plusSlides(this,  1)">&#10095;</button>
+      </div>
+      <div class="w3-dots"></div>
+      <h3 class="card-title">A CO2 Emission Prediction Machine-Learning-driven Model: XGBoost, Decision Tree, and Linear Regression Accuracy Comparison</h3>
+      <p class="card-desc">
+        Explored 3 different Machine Learning models - XGBoost, Decision Tree, and Linear regression - for
+        CO2 emission prediction from an offshore gas turbinewere (50,371 samples, 9 features). XGBoost and 
+        Decision Tree outperformed Linear Regression by capturing non-linear relationships, achieving RMSE of
+        0.027(R-Squared = 0.999) and 0.122 respectively, compared to Linear Regression's higher error.
+      </p>
+      <p class="card-desc">
+        Linear Regression fails in this case due to multicolinearity (r ≥ 0.95 across most feature pairs),
+        producing high-variance predictions that generalise poorly.
+      </p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">sklearn</span>
+        <span class="tag">xgboost</span>
+      </div>
+    </article>
+
+    <!-- Card 3 -->
+    <article class="project-card">
+      <div class="slideshow-wrap">
+        <div class="w3-slide active">
+          <img src="images/WhatsApp Image 2025-11-18 at 11.37.59.jpeg" alt="Blood pressure prototype" />
+        </div>
+        <button class="w3-prev" onclick="plusSlides(this, -1)">&#10094;</button>
+        <button class="w3-next" onclick="plusSlides(this,  1)">&#10095;</button>
+      </div>
+      <div class="w3-dots"></div>
+      <h3 class="card-title">Non-Invasive Blood Pressure Device: Pneumatic Control & Oscillometric Signal Processing</h3>
+      <p class="card-desc">
+        Led the hardware assembly, schematics, and was responsible for the hardware stack-
+        from the pneumatic circuit design to gates using transistor for automated control based from pressure transducers reading.
+        The device successfully approximated diastolic and systolic blood pressure within a tolerance of ± 13 mmHg. Mean Arterial 
+        Pressure (MAP) was extracted via peak envelope detection; derived systolic and diastolic via emperical amplitude ratios.
+      </p>
+      <p class="card-title">
+        Pipeline:
+        <br>
+        <p class="card-desc">
+        Cuff presurisation to ± 180 mmHg → Holding phase to minimise noise and stabilise readings → Deflation phase to deflate 
+        cuff pressure to ± 30 mmHg → Calculation phase of MAP, Systolic Blood Pressure (SBP), and Diastolic Blood Pressure (DBP).
+        </p>
+        </p>
+      <div class="tags">
+        <span class="tag">C++</span>
+        <span class="tag">Hardware Assembly</span>
+      </div>
+    </article>
+
+    <!-- Card 4 -->
+    <article class="project-card">
+      <div class="slideshow-wrap">
+        <div class="w3-slide active">
+          <img src="images/WhatsApp Image 2026-02-23 at 12.48.04.png" alt="Towers of Hanoi enclosure" />
+        </div>
+        <div class="w3-slide">
+            <img src="images/Screenshot 2026-03-21 at 23.07.11.png" alt="Second view" />
+          </div>
+        <div class="w3-slide">
+            <img src="images/Screenshot 2026-03-21 at 23.09.30.png" alt="Third view" />
+          </div>
+        <button class="w3-prev" onclick="plusSlides(this, -1)">&#10094;</button>
+        <button class="w3-next" onclick="plusSlides(this,  1)">&#10095;</button>
+      </div>
+      <div class="w3-dots"></div>
+      <h3 class="card-title">Haptic-Feedback Towers of Hanoi: Electromagnetic Design for Cognitive Engagement</h3>
+      <p class="card-desc">
+        Designed and 3D-printed the full case enclosure for a reimagined Towers of Hanoi, integrating electromagnetic 
+        actuators to deliver disc-specific haptic feedback on placement. The system targets cognitive engagement in 
+        children and elderly users — translating a classical puzzle into an interactive, sensorially-rich experience.
+      </p>
+      <div class="tags">
+        <span class="tag">FDM printing</span>
+        <span class="tag">Autodesk Fusion</span>
+        <span class="tag">Topology optimisation</span>
+      </div>
+    </article>
+
+  </div>
+
+ <!-- ─── MY EdDUCATION ─── -->
+  <div class="section-head">
+    <span style="color: var(--ink); font-weight: 500;">Education</span>
+    <div class="section-rule"></div>
+  </div>
+ 
+  <div class="education-strip">
+ 
+    <div class="edu-item">
+      <div class="edu-year">2025 — 2026</div>
+      <div class="edu-body">
+        <div class="edu-degree">Computer Science and IT Product Development (Exchange Study)</div>
+        <div class="edu-school">Aarhus University - Aarhus, Denmark</div>
+        <ul class="edu-list">
+            <li>Mechatronics</li>
+            <li>Physical Computing</li>
+            <li>Human Computer Interaction</li>
+            <li>Shape Changing Objects and Spaces</li>
+            <li>Python with Scientific Applications</li>
+          </ul>
+      </div>
+    </div>
+ 
+    <div class="edu-item">
+      <div class="edu-year">2023 — Present</div>
+      <div class="edu-body">
+        <div class="edu-degree">B.Sc Electronics and Instrumentation</div>
+        <div class="edu-school">Universitas Gadjah Mada - Yogyakarta, Indonesia</div>
+        <ul class="edu-list">
+            <li>Embedded Systems</li>
+            <li>Machine Learning</li>
+            <li>Sensor Systems</li>
+            <li>Control System</li>
+            <li>Signal Processing</li>
+          </ul>
+      </div>
+    </div>
+ 
+  </div>
+
+  <!-- ─── SKILLS ─── -->
+  <div class="section-head">
+    <span style="color: var(--ink); font-weight: 500;">Skills</span>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="skills-strip">
+    <div class="skill-col">
+      <div class="skill-col-label" style="color: var(--ink); font-weight: 500;">Software</div>
+      <div class="tags">
+        <span class="tag">Autodesk Fusion</span>
+        <span class="tag">C++</span>
+        <span class="tag">Python</span>
+      </div>
+    </div>
+    <div class="skill-col">
+      <div class="skill-col-label" style="color: var(--ink); font-weight: 500;">Methods</div>
+      <div class="tags">
+        <span class="tag">Topology optimisation</span>
+        <span class="tag">PID</span>
+        <span class="tag">Signal filtering</span>
+      </div>
+    </div>
+    <div class="skill-col">
+      <div class="skill-col-label" style="color: var(--ink); font-weight: 500;">Fabrication</div>
+      <div class="tags">
+        <span class="tag">CNC milling</span>
+        <span class="tag">FDM printing</span>
+        <span class="tag">PCB assembly</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div>
+      <div class="footer-contact">arya.g.winarto@gmail.com</div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-contact" style="color: var(--ink-2); font-weight: 400;">*Fun fact, this site was vibe-coded :D</div>
+    </div>
+  </footer>
+
+  <script>
+    /* ══════════════════════════════════════════════════
+       W3SCHOOLS SLIDESHOW — adapted per card
+       ══════════════════════════════════════════════════
+
+       To add more images to a card, just add another
+       <div class="w3-slide"> inside .slideshow-wrap:
+
+         <div class="w3-slide">
+           <img src="images/photo2.jpg" alt="..." />
+         </div>
+
+       Dots and arrows update automatically.
+    */
+
+    /* Initialise each slideshow: build dots, hide arrows if only 1 slide */
+    document.querySelectorAll('.slideshow-wrap').forEach(function(wrap) {
+      var slides = wrap.querySelectorAll('.w3-slide');
+      var dotsEl = wrap.nextElementSibling; // .w3-dots div
+
+      if (slides.length <= 1) {
+        // Single image — hide controls
+        wrap.querySelector('.w3-prev').style.display = 'none';
+        wrap.querySelector('.w3-next').style.display = 'none';
+        return;
+      }
+
+      // Build one dot per slide
+      slides.forEach(function(_, i) {
+        var dot = document.createElement('button');
+        dot.className = 'w3-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.addEventListener('click', function() {
+          goToSlide(wrap, i);
+        });
+        dotsEl.appendChild(dot);
+      });
+    });
+
+    /* Move by n steps (+1 next, -1 prev) */
+    function plusSlides(btn, n) {
+      var wrap   = btn.closest('.slideshow-wrap');
+      var slides = wrap.querySelectorAll('.w3-slide');
+      var cur    = Array.from(slides).findIndex(function(s) { return s.classList.contains('active'); });
+      goToSlide(wrap, (cur + n + slides.length) % slides.length);
+    }
+
+    /* Jump directly to slide index i */
+    function goToSlide(wrap, i) {
+      var slides = wrap.querySelectorAll('.w3-slide');
+      var dotsEl = wrap.nextElementSibling;
+      var dots   = dotsEl ? dotsEl.querySelectorAll('.w3-dot') : [];
+
+      slides.forEach(function(s) { s.classList.remove('active'); });
+      dots.forEach(function(d)   { d.classList.remove('active'); });
+
+      slides[i].classList.add('active');
+      if (dots[i]) dots[i].classList.add('active');
+    }
+
+    /* ─── Page transition ─── */
+    document.querySelectorAll('nav a:not([target="_blank"])').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var href = this.getAttribute('href');
+        if (!href || href === '#') return;
+        e.preventDefault();
+        document.body.classList.add('leaving');
+        setTimeout(function() { window.location.href = href; }, 350);
+      });
+    });
+
+    /* ─── Scroll fade-in for cards ─── */
+    var cards = document.querySelectorAll('.project-card');
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var delay = (Array.from(cards).indexOf(entry.target) % 2) * 80;
+            entry.target.style.animationDelay = delay + 'ms';
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      cards.forEach(function(card) { observer.observe(card); });
+    } else {
+      cards.forEach(function(c) { c.style.opacity = 1; c.style.transform = 'none'; });
+    }
+  </script>
+</body>
+</html>
