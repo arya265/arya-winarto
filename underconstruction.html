@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
+
+  <title>404 — Arya Winarto</title>
+
+  <style>
+    :root {
+      --serif: 'EB Garamond', 'Times New Roman', serif;
+      --sans:  'DM Sans', sans-serif;
+      --ink:   #1a1a18;
+      --ink-2: #6b6b67;
+      --ink-3: #b0aea9;
+      --rule:  rgba(0,0,0,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: #ffffff;
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    body { animation: fadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+
+    @media (prefers-reduced-motion: reduce) {
+      body { animation: none; }
+    }
+
+    /* ─── TOP BAR ─── */
+    .top-bar {
+      padding: 1.8rem 2.5rem;
+      border-bottom: 0.5px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .top-bar-name {
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--ink-3);
+    }
+
+    .top-bar-code {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--ink-3);
+      letter-spacing: 0.1em;
+    }
+
+    /* ─── CENTRE ─── */
+    .centre {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 2.5rem;
+      max-width: 780px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .error-num {
+      font-family: var(--serif);
+      font-size: clamp(5rem, 16vw, 11rem);
+      font-weight: 400;
+      line-height: 1;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      margin-bottom: 1.8rem;
+    }
+
+    .rule {
+      width: 100%;
+      height: 0.5px;
+      background: var(--rule);
+      margin-bottom: 2rem;
+    }
+
+    .message {
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--ink-2);
+    }
+
+    .message em {
+      font-style: italic;
+      color: var(--ink-3);
+    }
+
+    .sub {
+      margin-top: 1.6rem;
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--ink-3);
+      line-height: 1.7;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 2.6rem;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 0.5px solid var(--ink);
+      padding-bottom: 2px;
+      letter-spacing: 0.04em;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover { opacity: 0.5; }
+
+    /* ─── BOTTOM BAR ─── */
+    .bottom-bar {
+      padding: 1.8rem 2.5rem;
+      border-top: 0.5px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .bottom-bar span {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--ink-3);
+    }
+
+    @media (max-width: 560px) {
+      .top-bar, .bottom-bar { padding: 1.4rem 1.2rem; }
+      .centre { padding: 3rem 1.2rem; }
+      .bottom-bar { flex-direction: column; gap: 0.4rem; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="centre">
+    <div class="error-num">Error 404.</div>
+    <div class="rule"></div>
+    <p class="message">
+      This page is still<br>
+      <em>under construction :/</em>
+    </p>
+    <p class="sub">
+      Sorry about that.
+    </p>
+    <a href="portfolio.html" class="back-link">← Back to portfolio</a>
+  </div>
+
+  <div class="bottom-bar">
+  </div>
+
+</body>
+</html>
