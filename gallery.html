@@ -319,6 +319,7 @@
     <button class="announce-close" onclick="closeBar()" aria-label="Dismiss">✕</button>
   </div>
 
+
   <!-- ─── HEADER ─── -->
   <header>
     <div>
@@ -326,8 +327,8 @@
       <p class="header-sub">Street · Landscape · Architecture</p>
     </div>
     <nav class="site-nav">
-      <a href="gallery.html" class="active">Gallery</a>
-      <a href="index.html">Portfolio</a>
+      <a href="index Redesigned.html" class="active">Gallery</a>
+      <a href="portfolio.html">Portfolio</a>
       <a href="about.html">About</a>
     </nav>
   </header>
@@ -365,9 +366,28 @@
       <div class="stack-item"><img src="images/DSC08849.jpg" alt="Side 1" /></div>
       <div class="stack-item"><img src="images/DSC08734.jpg" alt="Side 2" /></div>
       <div class="stack-item"><img src="images/DSC08863.jpg" alt="Side 3" /></div>
-      <div class="stack-item"><img src="images/DSC08888.JPG" alt="Side 4" /></div>
+      <div class="stack-item"><img src="images/DSC08888.jpg" alt="Side 4" /></div>
     </section>
   </main>
+
+  <!-- ─── AARHUS ─── -->
+  <br><br><br><br>
+
+<main style="margin-bottom: 30px;">
+  <section class="portfolio-item">
+    <img src="images/DSC07648.png" alt="Description"
+         style="width:100%; object-fit:cover;" />
+    <div class="caption" style="color: white; bottom: 10%; left: 5%;">
+      <h2>Århus Ø<span></span></h2>
+      <h3 class="project-title">Den Gamle By 003</h3>
+    </div>
+  </section>
+
+<section class="gallery-grid">
+  <div class="grid-item"><img src="images/DSC07661.JPG" alt="Gallery 1" style="width:100%; aspect-ratio:2/1.4; object-fit:cover;"/></div>
+  <div class="grid-item"><img src="images/DSC07575.jpg" alt="Gallery 2" style="width:100%; aspect-ratio:2/1.4; object-fit:cover;"/></div>
+</section>
+</main>
 
   <footer style="padding: 3rem 2rem; background: white; color: var(--ink-2); font-family: var(--sans); font-weight: 300; font-size: 0.8rem;">
     <p style="margin: 0.3rem 0">arya.g.winarto@gmail.com</p>
@@ -375,17 +395,15 @@
   </footer>
 
   <script>
-    // ─── Announcement bar dismiss ───
-    function closeBar() {
-      var bar = document.getElementById('announce-bar');
-      bar.style.transition = 'opacity 0.25s, transform 0.25s';
-      bar.style.opacity = '0';
-      bar.style.transform = 'translateY(-100%)';
-      setTimeout(function() {
-        bar.style.display = 'none';
-        document.querySelector('header').style.top = '0';
-        document.body.style.paddingTop = 'var(--header-height)';
-      }, 260);
+
+    // ─── Desktop notice ───
+    window.onload = function() {
+      if (window.innerWidth < 1024) {
+        document.getElementById('desktop-notice').style.display = 'flex';
+      }
+    };
+    function closeNotice() {
+      document.getElementById('desktop-notice').style.display = 'none';
     }
 
     // ─── Page-exit transition (internal links only) ───
