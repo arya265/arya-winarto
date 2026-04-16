@@ -164,7 +164,7 @@
     /* The image inside each slide */
     .w3-slide img {
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 16 / 9.5;
       object-fit: cover;
       display: block;
       border: 0.5px solid var(--rule);
@@ -356,8 +356,8 @@
       <div class="header-sub">Portfolio</div>
     </div>
     <nav>
-      <a href="gallery.html">Gallery</a>
-      <a href="index.html" class="active">Portfolio</a>
+      <a href="index Redesigned.html">Gallery</a>
+      <a href="portfolio.html" class="active">Portfolio</a>
       <a href="about.html">About</a>
     </nav>
   </header>
@@ -443,6 +443,57 @@
       Each .w3-slide is one image. Add as many as you like.
       The JS handles showing/hiding and the dots automatically.
     -->
+
+    <!-- Card 5 -->
+    <article class="project-card">
+      <div class="slideshow-wrap">
+        <div class="w3-slide active">
+          <img src="images/DSP5.png" alt="Towers of Hanoi enclosure" />
+        </div>
+        <div class="w3-slide">
+            <img src="images/DSP1.png" alt="Second view" />
+          </div>
+        <div class="w3-slide">
+            <img src="images/DSP2.png" alt="Third view" />
+          </div>
+        <div class="w3-slide">
+            <img src="images/DSP3.png" alt="Third view" />
+        </div>
+        <div class="w3-slide">
+          <img src="images/DSP4.png" alt="Towers of Hanoi enclosure" />
+        </div>
+        <button class="w3-prev" onclick="plusSlides(this, -1)">&#10094;</button>
+        <button class="w3-next" onclick="plusSlides(this,  1)">&#10095;</button>
+      </div>
+      <div class="w3-dots"></div>
+      <h3 class="card-title">Digital Signal Conditioning: 2nd-Order Butterworth Filter Design and Performance Analysis</h3>
+      <p class="card-desc">
+        Implemented a digital LPF using a 2nd-Order IIR Butterworth. To validate the filter's performance,a 
+        sample ambient audio with chirp signal of (10 kHz - 24 kHz) was adopted to simulate wideband noise 
+        interference.
+      </p>
+      <p class="card-desc">
+       Butterworth architecture was selected to maximise the natural characteristic of flat passband which 
+       ensures signal of interest reimains undistorted. Opting for a digital implementation was driven by 
+       design flexibility and scalability, through rigorous parameter tuning and iteration.
+      </p>
+      <p class="card-desc">
+        To validate the filter's performance, Signal-to-Noise Ratio (SNR) analysis was opted. It achieved 
+        a 13.35 dB improvement, transitioning from -7.976 dB to a clear +5.372 dB, demonstrating the filter's 
+        ability in suppressing noisy band interference. 
+       </p>
+       <div class="card-desc">
+        Architecture:
+        <ul>
+            <li>fc: 5000 Hz</li>
+            <li>fs: 48000 Hz</li>
+        </ul>
+    </div>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">Signal filtering</span>
+      </div>
+    </article>
 
     <!-- Card 1 -->
     <article class="project-card">
@@ -546,7 +597,7 @@
       </div>
     </article>
 
-    <!-- Card 4 -->
+    <!-- Card 4
     <article class="project-card">
       <div class="slideshow-wrap">
         <div class="w3-slide active">
@@ -572,6 +623,28 @@
         <span class="tag">FDM printing</span>
         <span class="tag">Autodesk Fusion</span>
         <span class="tag">Topology optimisation</span>
+      </div>
+    </article> -->
+
+
+    <!-- Card 6 -->
+    <article class="project-card">
+      <div class="slideshow-wrap">
+        <div class="w3-slide active">
+          <img src="images/Progress.png" alt="Towers of Hanoi enclosure" />
+        </div>
+        <button class="w3-prev" onclick="plusSlides(this, -1)">&#10094;</button>
+        <button class="w3-next" onclick="plusSlides(this,  1)">&#10095;</button>
+      </div>
+      <div class="w3-dots"></div>
+      <h3 class="card-title">   </h3>
+      <p class="card-desc">
+        
+      </p>
+      <div class="tags">
+        <span class="tag">  </span>
+        <span class="tag">  </span>
+        <span class="tag">  </span>
       </div>
     </article>
 
