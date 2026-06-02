@@ -9,4 +9,4 @@ It includes my:
 2. Portfolio
 3. About me
 
-Feel free to have a look and email me if you have any inquiry. Thank you and have a great day!
+Feel free to have a look and email me if you have any inquiry.
