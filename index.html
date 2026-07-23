@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Arya Winarto — Portfolio</title>
+  <title>Arya Winarto — Engineering</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -92,6 +92,38 @@
     .section-head span { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; font-weight: 400; }
     .section-rule { flex: 1; height: 0.5px; background: var(--rule); }
 
+    /* ─── FILTER BUTTONS ─── */
+    .project-filters {
+      display: flex;
+      gap: 0.8rem;
+      padding: 0 2.5rem 1.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--ink-2);
+      background: transparent;
+      border: 0.5px solid var(--rule);
+      border-radius: 40px;
+      padding: 0.35rem 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.02em;
+    }
+    .filter-btn:hover {
+      color: var(--ink);
+      border-color: var(--ink-3);
+    }
+    .filter-btn.active {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+    .filter-hidden {
+      display: none !important;
+    }
+
     /* ─── FEATURED ─── */
     .featured {
       border-top: 0.5px solid var(--rule);
@@ -141,18 +173,21 @@
       transform: translateY(14px);
     }
     .project-card.visible { animation: fadeUp 0.5s ease forwards; }
+    /* We use a pseudo-selector trick here so borders still look correct when items are hidden */
     .project-card:nth-child(odd) { border-right: 0.5px solid var(--rule); }
+    .project-card:nth-child(even) { border-right: none; }
     .project-card:hover { background: var(--bg-2); }
 
+    /* Fix borders when filtering changes the odd/even order dynamically */
+    .project-grid { display: flex; flex-wrap: wrap; }
+    .project-card { width: 50%; }
+
     /* ─── W3SCHOOLS SLIDESHOW ─── */
-    /* Outer wrapper — sits where the image used to be */
     .slideshow-wrap {
       position: relative;
       width: 100%;
       margin-bottom: 1.2rem;
     }
-
-    /* Each slide: hidden by default, shown when .active */
     .w3-slide {
       display: none;
       position: relative;
@@ -160,8 +195,6 @@
     .w3-slide.active {
       display: block;
     }
-
-    /* The image inside each slide */
     .w3-slide img {
       width: 100%;
       aspect-ratio: 16 / 9.5;
@@ -173,8 +206,6 @@
     .project-card:hover .w3-slide.active img {
       transform: scale(1.03);
     }
-
-    /* Prev / Next buttons — appear on hover over the wrap */
     .w3-prev, .w3-next {
       position: absolute;
       top: 50%;
@@ -196,7 +227,6 @@
     .w3-next { right: 0; }
     .w3-prev:hover, .w3-next:hover { background: rgba(255,255,255,1); }
 
-    /* Dot indicators — W3Schools style */
     .w3-dots {
       text-align: center;
       padding: 6px 0 0;
@@ -217,7 +247,6 @@
       background: var(--ink);
       opacity: 1;
     }
-    /* Hide dots when only 1 image */
     .w3-dots:empty { display: none; }
 
     .card-num   { font-family: var(--serif); font-style: italic; font-size: 0.8rem; color: var(--ink-3); margin-bottom: 0.4rem; }
@@ -262,12 +291,11 @@
       nav { gap: 1rem; }
       .hero { grid-template-columns: 1fr; padding: 3rem 1.2rem 2.5rem; }
       .hero-right { align-items: flex-start; }
+      .project-filters { padding: 0 1.2rem 1.5rem; }
       .featured { grid-template-columns: 1fr; }
       .feat-visual { border-right: none; border-bottom: 0.5px solid var(--rule); }
       .feat-content { padding: 1.8rem 1.2rem; }
-      .project-grid { grid-template-columns: 1fr; }
-      .project-card:nth-child(odd) { border-right: none; }
-      .project-card { padding: 1.8rem 1.2rem; }
+      .project-card { width: 100%; border-right: none !important; padding: 1.8rem 1.2rem; }
       .skills-strip { grid-template-columns: 1fr; }
       .skill-col { border-right: none; border-bottom: 0.5px solid var(--rule); }
       .skill-col:last-child { border-bottom: none; }
@@ -328,63 +356,67 @@
       font-weight: 300;
     }
 
-        .edu-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: 0.5rem;
+    .edu-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
     }
 
     .edu-list li {
-    font-size: 0.72rem;
-    color: var(--ink-3);
-    border: 0.5px solid var(--rule);
-    padding: 0.2rem 0.55rem;
-    font-weight: 400;
-    letter-spacing: 0.04em;
+      font-size: 0.72rem;
+      color: var(--ink-3);
+      border: 0.5px solid var(--rule);
+      padding: 0.2rem 0.55rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
     }
   </style>
 </head>
 <body>
 
-  <!-- ─── HEADER ─── -->
   <header>
     <div>
       <div class="header-name">Arya Winarto</div>
       <div class="header-sub">Portfolio</div>
     </div>
     <nav>
-      <a href="gallery.html">Gallery</a>
+      <a href="index Redesigned.html">Gallery</a>
       <a href="portfolio.html" class="active">Portfolio</a>
       <a href="about.html">About</a>
     </nav>
   </header>
 
-  <!-- ─── HERO ─── -->
   <section class="hero">
     <div>
       <h1 class="hero-title">Hi,<br><em>I'm Arya!</em></h1>
       <p class="hero-body">
-        An Electronics engineer with a deep passion for the application of signals & systems and machine learning.
+        An undergraduate electronics and instrumentation student at Universitas Gadjah Mada,
+        focused on bridging hardware and software — from sensor design to edge deployment.
       </p>
       <div class="hero-links">
         <a href="https://www.linkedin.com/in/aryawinarto/" target="_blank" class="meta-pill">LinkedIn ↗</a>
-        <a href="resume.html" target="_blank" class="meta-pill">Resume ↗</a>
-        <!-- <a href="https://mail.google.com/mail/?view=cm&to=arya.g.winarto@gmail.com" target="_blank" class="meta-pill">Email ↗</a> -->
+        <a href="resume.html" target="_blank" class="meta-pill">CV ↗</a>
       </div>
     </div>
     <div class="hero-right"></div>
   </section>
 
-  <!-- ─── FEATURED ─── -->
-    <div class="section-head">
-    <span style="color: var(--ink); font-weight: 500;">Projects</span>
+  <div class="section-head">
+    <span style="color: var(--ink); font-weight: 500;">Projects</span> 
     <div class="section-rule"></div>
   </div>
-  
-  <article class="featured">
+
+  <div class="project-filters">
+    <button class="filter-btn active" data-filter="all">All Projects</button> 
+    <button class="filter-btn" data-filter="signal-processing">Signal Processing</button>
+    <button class="filter-btn" data-filter="ai-ml">Machine Learning</button>
+    <button class="filter-btn" data-filter="hardware">Hardware</button>
+  </div>
+
+  <article class="featured" data-category="hardware">
     <div class="feat-visual">
         <div class="slideshow-wrap">
             <div class="w3-slide active">
@@ -428,18 +460,9 @@
     </div>
   </article>
 
-  <!-- ─── PROJECT GRID ─── -->
-
   <div class="project-grid">
 
-    <!--
-      HOW TO ADD MULTIPLE IMAGES:
-      Each .w3-slide is one image. Add as many as you like.
-      The JS handles showing/hiding and the dots automatically.
-    -->
-
-    <!-- Card 5 -->
-    <article class="project-card">
+    <article class="project-card" data-category="signal-processing">
       <div class="slideshow-wrap">
         <div class="w3-slide active">
           <img src="images/DSP5.png" alt="Towers of Hanoi enclosure" />
@@ -466,13 +489,22 @@
         sample ambient audio with chirp signal of (10 kHz - 24 kHz) was adopted to simulate wideband noise 
         interference.
       </p>
-      
+      <p class="card-desc">
+       Butterworth architecture was selected to maximise the natural characteristic of flat passband which 
+       ensures signal of interest reimains undistorted. Opting for a digital implementation was driven by 
+       design flexibility and scalability, through rigorous parameter tuning and iteration.
+      </p>
       <p class="card-desc">
         To validate the filter's performance, Signal-to-Noise Ratio (SNR) analysis was opted. It achieved 
         a 13.35 dB improvement, transitioning from -7.976 dB to a clear +5.372 dB, demonstrating the filter's 
         ability in suppressing noisy band interference. 
        </p>
        <div class="card-desc">
+        Architecture:
+        <ul>
+            <li>fc: 5000 Hz</li>
+            <li>fs: 48000 Hz</li>
+        </ul>
     </div>
       <div class="tags">
         <span class="tag">Python</span>
@@ -483,8 +515,7 @@
   </br>
     </article>
 
-    <!-- Card 1 -->
-    <article class="project-card">
+    <article class="project-card" data-category="ai-ml">
         <div class="slideshow-wrap">
             <div class="w3-slide active">
               <img src="images/Screenshot 2026-03-21 at 17.44.48.png" alt="First view" />
@@ -502,27 +533,25 @@
       <h3 class="card-title">Predicting CO2 Emission from an Offshore Gas Turbine Using Deep Learning: A Dense Neural Network Approach</h3>
       <p class="card-desc">
         Following the 3-model comparison (Linear Regression, Decision Tree, XGBoost), a Dense Neural Network was introduced to investigate 
-        wether deep learning could further improve predictive accuracy on the CO2 emission task. 
-      </p>
-      <p class="card-desc">
-        The 3 layer architecture 
-        achieved R-Squared = 0.981 and RMSE = 0.494. L1 regularisation was applied to suppress redundant feature weights, addressing
-        the severe multicolinearity identified in the sensor data and early stopping to halt training and peak validation performance.
-        Future work targets model optimisation for edge deployment.
+        wether deep learning could further improve predictive accuracy on the CO2 emission task. The 3 layer architecture (64 → 32 → 16 units, ELU activation), 
+        achieved R-Squared = 0.981 and RMSE = 0.494. L1 regularisation was applied accross all hidden layers to suppress redundant feature weights - directly addressing
+        the severe multicolinearity identified in the sensor data - and early stopping to halt training and peak validation performance.
       </p>
       <br>
+      <p class="card-desc">
+        Future work targets edge deployment on low-cost microcontrollers such as the ESP32-P4, eliminating cloud dependency for real-time inference.
+      </p>
       <div class="tags">
         <span class="tag">Python</span>
         <span class="tag">TensorFlow</span>
         <span class="tag">Keras</span>
       </div>
-       <br>
+      <br>
         <a href="https://github.com/arya265/arya-winarto/blob/main/Dense%20Neural%20Network%20on%20CO2%20Emission.ipynb" target="_blank" class="meta-pill">Go To Code ↗</a>
     </br>
     </article>
 
-    <!-- Card 2 -->
-    <article class="project-card">
+    <article class="project-card" data-category="ai-ml">
       <div class="slideshow-wrap">
         <div class="w3-slide active">
           <img src="images/CorrelationMatrix.png" alt="ML comparison" />
@@ -558,8 +587,7 @@
       </div>
     </article>
 
-    <!-- Card 3 -->
-    <article class="project-card">
+    <article class="project-card" data-category="signal-processing">
       <div class="slideshow-wrap">
         <div class="w3-slide active">
           <img src="images/WhatsApp Image 2025-11-18 at 11.37.59.jpeg" alt="Blood pressure prototype" />
@@ -589,39 +617,9 @@
       </div>
     </article>
 
-    <!-- Card 4
-    <article class="project-card">
-      <div class="slideshow-wrap">
-        <div class="w3-slide active">
-          <img src="images/WhatsApp Image 2026-02-23 at 12.48.04.png" alt="Towers of Hanoi enclosure" />
-        </div>
-        <div class="w3-slide">
-            <img src="images/Screenshot 2026-03-21 at 23.07.11.png" alt="Second view" />
-          </div>
-        <div class="w3-slide">
-            <img src="images/Screenshot 2026-03-21 at 23.09.30.png" alt="Third view" />
-          </div>
-        <button class="w3-prev" onclick="plusSlides(this, -1)">&#10094;</button>
-        <button class="w3-next" onclick="plusSlides(this,  1)">&#10095;</button>
-      </div>
-      <div class="w3-dots"></div>
-      <h3 class="card-title">Haptic-Feedback Towers of Hanoi: Electromagnetic Design for Cognitive Engagement</h3>
-      <p class="card-desc">
-        Designed and 3D-printed the full case enclosure for a reimagined Towers of Hanoi, integrating electromagnetic 
-        actuators to deliver disc-specific haptic feedback on placement. The system targets cognitive engagement in 
-        children and elderly users — translating a classical puzzle into an interactive, sensorially-rich experience.
-      </p>
-      <div class="tags">
-        <span class="tag">FDM printing</span>
-        <span class="tag">Autodesk Fusion</span>
-        <span class="tag">Topology optimisation</span>
-      </div>
-    </article> -->
-
   </div>
 
- <!-- ─── MY EdDUCATION ─── -->
-  <div class="section-head">
+ <div class="section-head">
     <span style="color: var(--ink); font-weight: 500;">Education</span>
     <div class="section-rule"></div>
   </div>
@@ -658,7 +656,6 @@
  
   </div>
 
-  <!-- ─── SKILLS ─── -->
   <div class="section-head">
     <span style="color: var(--ink); font-weight: 500;">Skills</span>
     <div class="section-rule"></div>
@@ -690,7 +687,6 @@
     </div>
   </div>
 
-  <!-- ─── FOOTER ─── -->
   <footer>
     <div>
       <div class="footer-contact">arya.g.winarto@gmail.com</div>
@@ -702,32 +698,18 @@
 
   <script>
     /* ══════════════════════════════════════════════════
-       W3SCHOOLS SLIDESHOW — adapted per card
-       ══════════════════════════════════════════════════
-
-       To add more images to a card, just add another
-       <div class="w3-slide"> inside .slideshow-wrap:
-
-         <div class="w3-slide">
-           <img src="images/photo2.jpg" alt="..." />
-         </div>
-
-       Dots and arrows update automatically.
-    */
-
-    /* Initialise each slideshow: build dots, hide arrows if only 1 slide */
+       W3SCHOOLS SLIDESHOW
+       ══════════════════════════════════════════════════ */
     document.querySelectorAll('.slideshow-wrap').forEach(function(wrap) {
       var slides = wrap.querySelectorAll('.w3-slide');
-      var dotsEl = wrap.nextElementSibling; // .w3-dots div
+      var dotsEl = wrap.nextElementSibling; 
 
       if (slides.length <= 1) {
-        // Single image — hide controls
         wrap.querySelector('.w3-prev').style.display = 'none';
         wrap.querySelector('.w3-next').style.display = 'none';
         return;
       }
 
-      // Build one dot per slide
       slides.forEach(function(_, i) {
         var dot = document.createElement('button');
         dot.className = 'w3-dot' + (i === 0 ? ' active' : '');
@@ -739,7 +721,6 @@
       });
     });
 
-    /* Move by n steps (+1 next, -1 prev) */
     function plusSlides(btn, n) {
       var wrap   = btn.closest('.slideshow-wrap');
       var slides = wrap.querySelectorAll('.w3-slide');
@@ -747,7 +728,6 @@
       goToSlide(wrap, (cur + n + slides.length) % slides.length);
     }
 
-    /* Jump directly to slide index i */
     function goToSlide(wrap, i) {
       var slides = wrap.querySelectorAll('.w3-slide');
       var dotsEl = wrap.nextElementSibling;
@@ -759,6 +739,38 @@
       slides[i].classList.add('active');
       if (dots[i]) dots[i].classList.add('active');
     }
+
+    /* ══════════════════════════════════════════════════
+       PROJECT FILTERING LOGIC
+       ══════════════════════════════════════════════════ */
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const filterableItems = document.querySelectorAll('.featured, .project-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // 1. Remove active class from all buttons, add to clicked
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // 2. Get the filter category
+        const filterValue = btn.getAttribute('data-filter');
+
+        // 3. Loop through items and show/hide
+        filterableItems.forEach(item => {
+          if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+            item.classList.remove('filter-hidden');
+            
+            // Re-trigger the fade-up animation so it looks clean when cards reappear
+            item.style.animation = 'none';
+            item.offsetHeight; /* trigger reflow */
+            item.style.animation = null;
+            item.classList.add('visible'); 
+          } else {
+            item.classList.add('filter-hidden');
+          }
+        });
+      });
+    });
 
     /* ─── Page transition ─── */
     document.querySelectorAll('nav a:not([target="_blank"])').forEach(function(link) {
