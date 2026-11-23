@@ -74,6 +74,7 @@
     .hero-title em { font-style: italic; color: var(--accent); }
     .hero-body { font-size: 0.85rem; color: var(--ink-2); line-height: 1.85; margin-top: 1.4rem; font-weight: 300; max-width: 380px; }
     .hero-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.7rem; }
+    .hero-video { width: 100%; max-width: 520px; aspect-ratio: 16 / 9; object-fit: cover; display: block; border: 0.5px solid var(--rule); }
 
     .meta-pill {
       font-size: 0.72rem; color: var(--bg); border: 0.5px solid var(--rule);
@@ -388,9 +389,9 @@
     .card-actions { margin-top: 1.2rem; }
     .card-num { margin-bottom: 0.3rem; }
 
-    .acc { border-top: 0.5px solid var(--rule); margin-bottom: 2.5rem; }
+    .acc { border-top: 0.5px solid var(--rule); margin-bottom: 0; } /* was 2.5rem — removed to pull Skills up closer to the projects */
     .acc-item { border-bottom: 0.5px solid var(--rule); scroll-margin-top: calc(var(--header-height) + 1rem); }
-    .acc-row { display: grid; grid-template-columns: 40px 1.6fr 1fr 1fr 1fr 24px; gap: 1.2rem; align-items: baseline;
+    .acc-row { display: grid; grid-template-columns: 40px 1.6fr 1fr 1fr 24px; gap: 1.2rem; align-items: baseline;
                width: 100%; padding: 1rem 2.5rem; background: none; border: none; text-align: left; cursor: pointer;
                font: inherit; color: inherit; transition: background 0.2s; }
     .acc-row:hover, .acc-item.open .acc-row { background: var(--bg-2); }
@@ -477,7 +478,11 @@
         <a href="https://www.linkedin.com/in/aryawinarto/" target="_blank" rel="noopener" class="meta-pill">LinkedIn ↗</a>
       </div>
     </div>
-    <div class="hero-right"></div>
+    <div class="hero-right">
+      <!-- Looping video (acts like a GIF). Source: IMG_2326.mov, converted to MP4 -->
+      <video class="hero-video" src="images/hero-loop.mp4" poster="images/hero-loop-poster.jpg"
+             autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+    </div>
   </section>
 
   <div class="section-head">
@@ -495,13 +500,13 @@
     <button class="expand-all">Expand all</button>
   </div>
   <div class="acc">
-    <div class="acc-row acc-head"><span>#</span><span>Project</span><span class="ov-hide">Field</span><span>Key result</span><span class="ov-hide">Stack</span><span></span></div>
+    <div class="acc-row acc-head"><span>#</span><span>Project</span><span class="ov-hide">Field</span><span>Key result</span><span></span></div>
 
     <div class="acc-item" id="co-network" data-category="hardware">
       <button class="acc-row" aria-expanded="false" aria-controls="co-network-panel">
         <span class="ov-num">01</span><span class="ov-title">Real-time Carbon Monoxide Monitoring Network (DIKE) Capstone Project</span>
         <span class="ov-domain">Hardware · IoT</span><span class="ov-metric">10 nodes · real-time</span>
-        <span class="ov-stack">C++, Autodesk Fusion</span><span class="acc-icon" aria-hidden="true">+</span>
+        <span class="acc-icon" aria-hidden="true">+</span>
       </button>
       <div class="acc-panel" id="co-network-panel" role="region">
         <div class="acc-inner">
@@ -537,7 +542,7 @@
       <button class="acc-row" aria-expanded="false" aria-controls="butterworth-panel">
         <span class="ov-num">02</span><span class="ov-title">Digital Signal Conditioning</span>
         <span class="ov-domain">Signal processing</span><span class="ov-metric">+13.35 dB SNR</span>
-        <span class="ov-stack">Python, Signal filtering</span><span class="acc-icon" aria-hidden="true">+</span>
+        <span class="acc-icon" aria-hidden="true">+</span>
       </button>
       <div class="acc-panel" id="butterworth-panel" role="region">
         <div class="acc-inner">
@@ -576,7 +581,7 @@
       <button class="acc-row" aria-expanded="false" aria-controls="dnn-panel">
         <span class="ov-num">03</span><span class="ov-title">Predicting CO₂ Emission from an Offshore Gas Turbine Using Deep Learning</span>
         <span class="ov-domain">Machine learning</span><span class="ov-metric">R² 0.981</span>
-        <span class="ov-stack">Python</span><span class="acc-icon" aria-hidden="true">+</span>
+        <span class="acc-icon" aria-hidden="true">+</span>
       </button>
       <div class="acc-panel" id="dnn-panel" role="region">
         <div class="acc-inner">
@@ -613,7 +618,7 @@
       <button class="acc-row" aria-expanded="false" aria-controls="ml-compare-panel">
         <span class="ov-num">04</span><span class="ov-title">CO₂ Emission Prediction</span>
         <span class="ov-domain">Machine learning</span><span class="ov-metric">R² 0.999 (XGBoost)</span>
-        <span class="ov-stack">Python, scikit-learn</span><span class="acc-icon" aria-hidden="true">+</span>
+        <span class="acc-icon" aria-hidden="true">+</span>
       </button>
       <div class="acc-panel" id="ml-compare-panel" role="region">
         <div class="acc-inner">
@@ -651,7 +656,7 @@
       <button class="acc-row" aria-expanded="false" aria-controls="nibp-panel">
         <span class="ov-num">05</span><span class="ov-title">Non-Invasive Blood Pressure Device</span>
         <span class="ov-domain">Hardware · Biomedical</span><span class="ov-metric">±13 mmHg</span>
-        <span class="ov-stack">C++, Hardware Assembly</span><span class="acc-icon" aria-hidden="true">+</span>
+        <span class="acc-icon" aria-hidden="true">+</span>
       </button>
       <div class="acc-panel" id="nibp-panel" role="region">
         <div class="acc-inner">
