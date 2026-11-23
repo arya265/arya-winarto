@@ -4,11 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Arya Winarto — Engineering</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-
   <style>
     :root {
       --header-height: 80px;
@@ -373,6 +371,85 @@
       font-weight: 400;
       letter-spacing: 0.04em;
     }
+  
+    /* ─── SHARED REDESIGN ADDITIONS ─── */
+    article { scroll-margin-top: calc(var(--header-height) + 1rem); }
+    .todo { display: inline-block; font-family: var(--sans); font-size: 0.7rem; color: #8a5a00;
+            background: #fff6e0; border: 1px dashed #e0b050; padding: 0.15rem 0.5rem; margin-top: 0.3rem; }
+    .result-box { margin: 1.2rem 0; padding: 0.9rem 1.1rem; background: var(--bg-2); border-left: 2px solid var(--accent); }
+    .result-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-3); margin-bottom: 0.25rem; }
+    .result-val { font-family: var(--serif); font-size: 1.35rem; color: var(--ink); line-height: 1.2; }
+    .result-note { font-size: 0.72rem; color: var(--ink-2); margin-top: 0.25rem; font-weight: 300; }
+    .spec-list, .pipe-list { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.2rem 0 1rem; }
+    .spec-list li { font-size: 0.7rem; color: var(--ink-2); border: 0.5px solid var(--rule); padding: 0.2rem 0.55rem; }
+    .pipe-list { counter-reset: step; flex-direction: column; gap: 0.25rem; }
+    .pipe-list li { counter-increment: step; font-size: 0.75rem; color: var(--ink-2); font-weight: 300; }
+    .pipe-list li::before { content: counter(step) " →  "; font-family: var(--serif); font-style: italic; color: var(--accent); }
+    .card-actions { margin-top: 1.2rem; }
+    .card-num { margin-bottom: 0.3rem; }
+
+    .acc { border-top: 0.5px solid var(--rule); margin-bottom: 2.5rem; }
+    .acc-item { border-bottom: 0.5px solid var(--rule); scroll-margin-top: calc(var(--header-height) + 1rem); }
+    .acc-row { display: grid; grid-template-columns: 40px 1.6fr 1fr 1fr 1fr 24px; gap: 1.2rem; align-items: baseline;
+               width: 100%; padding: 1rem 2.5rem; background: none; border: none; text-align: left; cursor: pointer;
+               font: inherit; color: inherit; transition: background 0.2s; }
+    .acc-row:hover, .acc-item.open .acc-row { background: var(--bg-2); }
+    .acc-row:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
+    .acc-head { padding-top: 0.6rem; padding-bottom: 0.6rem; cursor: default; border-bottom: 0.5px solid var(--rule); }
+    .acc-head:hover { background: none; }
+    .acc-head span { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-3); }
+    .ov-num { font-family: var(--serif); font-style: italic; font-size: 0.85rem; color: var(--ink-3); }
+    .ov-title { font-family: var(--serif); font-size: 1.1rem; line-height: 1.3; }
+    .ov-domain, .ov-stack { font-size: 0.75rem; color: var(--ink-2); font-weight: 300; }
+    .ov-metric { font-family: var(--serif); font-size: 1.05rem; color: var(--accent); }
+    .acc-icon { justify-self: end; font-size: 1.1rem; font-weight: 300; color: var(--ink-3); transition: transform 0.3s ease, color 0.2s; }
+    .acc-item.open .acc-icon { transform: rotate(45deg); color: var(--accent); }
+
+    /* smooth height animation: grid row 0fr → 1fr */
+    .acc-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s ease; }
+    .acc-item.open .acc-panel { grid-template-rows: 1fr; }
+    .acc-inner { overflow: hidden; }
+    .acc-body { display: grid; grid-template-columns: 1.1fr 1fr; gap: 2.5rem; padding: 1.8rem 2.5rem 2.4rem calc(2.5rem + 40px + 1.2rem);
+                opacity: 0; transform: translateY(-6px); transition: opacity 0.3s ease, transform 0.3s ease; }
+    .acc-item.open .acc-body { opacity: 1; transform: none; transition-delay: 0.1s; }
+    .acc-badge { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 0.7rem; }
+    .acc-full-title { font-family: var(--serif); font-weight: 400; font-size: 1.25rem; line-height: 1.3; margin-bottom: 0.2rem; }
+    .acc-body .result-box { margin-top: 0.8rem; }
+    .acc-body .slideshow-wrap { margin-bottom: 0.4rem; }
+    .acc-body .w3-slide img { aspect-ratio: auto; max-height: 420px; object-fit: contain; background: var(--bg); }
+
+    /* V1 decision-log rows */
+    .log { margin: 0.4rem 0 1.2rem; }
+    .log-row { display: grid; grid-template-columns: 92px 1fr; gap: 1rem; padding: 0.7rem 0; border-top: 0.5px solid var(--rule); }
+    .log-row:first-child { border-top: none; padding-top: 0; }
+    .log-k { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-3); padding-top: 0.2rem; }
+    .log-row.why .log-k { color: var(--accent); font-weight: 500; }
+    .log-v .card-desc { margin-bottom: 0.5rem; }
+    .log-v .card-desc:last-child { margin-bottom: 0; }
+    .log-row.why .log-v { border-left: 2px solid var(--accent); padding-left: 0.9rem; }
+    .log-row.why .card-desc { color: var(--ink); }
+
+    .acc-tools { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; padding: 0 2.5rem 1.2rem; }
+    .acc-tools .project-filters { padding: 0; }
+    .expand-all { font-family: var(--sans); font-size: 0.72rem; color: var(--ink-2); background: none; border: none; cursor: pointer;
+                  text-decoration: underline; text-underline-offset: 3px; }
+    .expand-all:hover { color: var(--ink); }
+
+    @media (prefers-reduced-motion: reduce) { .acc-panel, .acc-body, .acc-icon { transition: none; } }
+    @media (max-width: 900px) {
+      .acc-row { grid-template-columns: 32px 1fr auto 20px; padding: 0.95rem 1.2rem; gap: 0.8rem; }
+      .ov-domain, .ov-stack, .acc-head .ov-hide { display: none; }
+      .acc-item .ov-title { font-size: 1rem; }
+      .acc-item .ov-metric { font-size: 0.85rem; max-width: 7.5rem; text-align: right; }
+      .acc-body { grid-template-columns: 1fr; gap: 1.4rem; padding: 1.2rem 1.2rem 2rem; }
+      .log-row { grid-template-columns: 1fr; gap: 0.3rem; }
+      .acc-tools { padding: 0 1.2rem 1rem; }
+    }
+
+    .skills-simple { padding: 0.4rem 2.5rem 2.2rem; }
+    @media (max-width: 768px) { .skills-simple { padding: 0.2rem 1.2rem 1.8rem; } }
+    .orig-desc { margin: 0.4rem 0 1.2rem; }
+    .orig-desc ul { padding-left: 1.2rem; margin-top: 0.3rem; }
   </style>
 </head>
 <body>
@@ -384,7 +461,7 @@
     </div>
     <nav>
       <a href="gallery.html">Gallery</a>
-      <a href="portfolio.html" class="active">Portfolio</a>
+      <a href="index.html" class="active">Portfolio</a>
       <a href="about.html">About</a>
     </nav>
   </header>
@@ -397,225 +474,212 @@
         focusing on bridging hardware and software.
       </p>
       <div class="hero-links">
-        <a href="https://www.linkedin.com/in/aryawinarto/" target="_blank" class="meta-pill">LinkedIn ↗</a>
-        <!-- <a href="resume.html" target="_blank" class="meta-pill">CV ↗</a> -->
+        <a href="https://www.linkedin.com/in/aryawinarto/" target="_blank" rel="noopener" class="meta-pill">LinkedIn ↗</a>
       </div>
     </div>
     <div class="hero-right"></div>
   </section>
 
   <div class="section-head">
-    <span style="color: var(--ink); font-weight: 500;">Projects</span> 
+    <span style="color: var(--ink); font-weight: 500;">Projects</span>
     <div class="section-rule"></div>
   </div>
 
-  <!-- <div class="project-filters">
-    <button class="filter-btn active" data-filter="all">All Projects</button> 
-    <button class="filter-btn" data-filter="signal-processing">Signal Processing</button>
-    <button class="filter-btn" data-filter="ai-ml">Machine Learning</button>
-    <button class="filter-btn" data-filter="hardware">Hardware</button>
-  </div> --->
+  <div class="acc-tools">
+    <div class="project-filters">
+      <button class="filter-btn active" data-filter="all">All Projects</button>
+      <!-- <button class="filter-btn" data-filter="signal-processing">Signal Processing</button> -->
+      <button class="filter-btn" data-filter="ai-ml">Machine Learning</button>
+      <button class="filter-btn" data-filter="hardware">Hardware</button>
+    </div>
+    <button class="expand-all">Expand all</button>
+  </div>
+  <div class="acc">
+    <div class="acc-row acc-head"><span>#</span><span>Project</span><span class="ov-hide">Field</span><span>Key result</span><span class="ov-hide">Stack</span><span></span></div>
 
-  <article class="featured" data-category="hardware">
-    <div class="feat-visual">
-        <div class="slideshow-wrap">
-            <div class="w3-slide active">
-              <img src="images/Zeppelin.png" alt="Zeppelin render" />
-            </div>
-            <div class="w3-slide">
-              <img src="images/WhatsApp Image 2025-09-25 at 09.15.58.jpeg" alt="Project photo" />
-            </div>
-            <button class="w3-prev" onclick="plusSlides(this, -1)">&#10094;</button>
-            <button class="w3-next" onclick="plusSlides(this,  1)">&#10095;</button>
-          </div>
-          <div class="w3-dots"></div>
-          <div class="feat-badge">Zeppelin DIKE Capstone · 2025</div>
-        </div>
-    <div class="feat-content">
-      <div>
-        <h2 class="feat-title">Real-time Carbon Monoxide Monitoring Network</h2>
-        <p class="feat-desc">
-            Led hardware design and network architecture for a 10-node real-time CO monitoring system, 
-            defining sensor network topology and signal pipeline from transducer to dashboard. 
-            Proposed a spatial interpolation ML model to predict air quality in uncovered zones,
-            framing the core assumption of environmental homogeneity between nodes and specifying the 
-            methodology adopted by the team.
-        </p>
-        <br>
-        <p class="feat-desc">
-            Motivated by the need to map harmful atmospheric activity at an urban scale-especially 
-            in outdoor campus areas. The system's pollution pattern data directly informs transport 
-            optimisation, urban planning, and environmental regulation.
-        </p>
-        <div class="feat-result">
-          <div class="feat-result-label">Key result</div>
-          <div class="feat-result-val">Real-time air quality monitoring</div>
-        </div>
+    <div class="acc-item" id="co-network" data-category="hardware">
+      <button class="acc-row" aria-expanded="false" aria-controls="co-network-panel">
+        <span class="ov-num">01</span><span class="ov-title">Real-time Carbon Monoxide Monitoring Network (DIKE) Capstone Project</span>
+        <span class="ov-domain">Hardware · IoT</span><span class="ov-metric">10 nodes · real-time</span>
+        <span class="ov-stack">C++, Autodesk Fusion</span><span class="acc-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="acc-panel" id="co-network-panel" role="region">
+        <div class="acc-inner">
+          <div class="acc-body">
+            <div>
+      <div class="slideshow-wrap">
+        <div class="w3-slide active"><img src="images/Zeppelin.png" alt="Zeppelin enclosure render" loading="lazy" /></div>
+        <div class="w3-slide"><img src="images/WhatsApp Image 2025-09-25 at 09.15.58.jpeg" alt="Deployed sensor node" loading="lazy" /></div>
+        <button class="w3-prev" onclick="plusSlides(this, -1)" aria-label="Previous image">&#10094;</button>
+        <button class="w3-next" onclick="plusSlides(this,  1)" aria-label="Next image">&#10095;</button>
       </div>
-      <div class="feat-tags tags" style="margin-top: 1.5rem;">
-        <span class="tag">C++</span>
-        <span class="tag">Autodesk Fusion</span>
-        <span class="tag">Hardware Assembly</span>
+      <div class="w3-dots"></div>
+            </div>
+            <div>
+              <div class="acc-badge">Zeppelin DIKE Capstone · 2025</div>
+              <h3 class="acc-full-title">Real-time Carbon Monoxide Monitoring Network</h3>
+              <div class="result-box">
+        <div class="result-label">Key result</div>
+        <div class="result-val">10-node real-time network</div>
+        <!-- <div class="result-note"><span class="todo">Add a measured figure — e.g. uptime, update latency or interpolation error</span></div> -->
+      </div>
+              <div class="orig-desc"><p class="card-desc">Led hardware design and network architecture for a 10-node real-time CO monitoring system, defining sensor network topology and signal pipeline from transducer to dashboard. Proposed a spatial interpolation ML model to predict air quality in uncovered zones, framing the core assumption of environmental homogeneity between nodes and specifying the methodology adopted by the team.</p><p class="card-desc">Motivated by the need to map harmful atmospheric activity at an urban scale-especially in outdoor campus areas. The system's pollution pattern data directly informs transport optimisation, urban planning, and environmental regulation.</p></div>
+              <div class="tags"><span class="tag">C++</span><span class="tag">Autodesk Fusion</span><span class="tag">Hardware Assembly</span></div>
+              
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </article>
 
-  <div class="project-grid">
-
-    <article class="project-card" data-category="signal-processing">
+    <!-- HIDDEN: Project 02 — Digital Signal Conditioning
+    <div class="acc-item" id="butterworth" data-category="signal-processing">
+      <button class="acc-row" aria-expanded="false" aria-controls="butterworth-panel">
+        <span class="ov-num">02</span><span class="ov-title">Digital Signal Conditioning</span>
+        <span class="ov-domain">Signal processing</span><span class="ov-metric">+13.35 dB SNR</span>
+        <span class="ov-stack">Python, Signal filtering</span><span class="acc-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="acc-panel" id="butterworth-panel" role="region">
+        <div class="acc-inner">
+          <div class="acc-body">
+            <div>
       <div class="slideshow-wrap">
-        <div class="w3-slide active">
-          <img src="images/DSP5.png" alt="Towers of Hanoi enclosure" />
-        </div>
-        <div class="w3-slide">
-            <img src="images/DSP1.png" alt="Second view" />
-          </div>
-        <div class="w3-slide">
-            <img src="images/DSP2.png" alt="Third view" />
-          </div>
-        <div class="w3-slide">
-            <img src="images/DSP3.png" alt="Third view" />
-        </div>
-        <div class="w3-slide">
-          <img src="images/DSP4.png" alt="Towers of Hanoi enclosure" />
-        </div>
-        <button class="w3-prev" onclick="plusSlides(this, -1)">&#10094;</button>
-        <button class="w3-next" onclick="plusSlides(this,  1)">&#10095;</button>
+        <div class="w3-slide active"><img src="images/DSP5.png" alt="Filter output spectrum" loading="lazy" /></div>
+        <div class="w3-slide"><img src="images/DSP1.png" alt="Input signal" loading="lazy" /></div>
+        <div class="w3-slide"><img src="images/DSP2.png" alt="Frequency response" loading="lazy" /></div>
+        <div class="w3-slide"><img src="images/DSP3.png" alt="Filtered signal" loading="lazy" /></div>
+        <div class="w3-slide"><img src="images/DSP4.png" alt="SNR comparison" loading="lazy" /></div>
+        <button class="w3-prev" onclick="plusSlides(this, -1)" aria-label="Previous image">&#10094;</button>
+        <button class="w3-next" onclick="plusSlides(this,  1)" aria-label="Next image">&#10095;</button>
       </div>
       <div class="w3-dots"></div>
-      <h3 class="card-title">Digital Signal Conditioning: 2nd-Order Butterworth Filter Design and Performance Analysis</h3>
-      <p class="card-desc">
-        Implemented a digital LPF using a 2nd-Order IIR Butterworth. To validate the filter's performance,a 
-        sample ambient audio with chirp signal of (10 kHz - 24 kHz) was adopted to simulate wideband noise 
-        interference.
-      </p>
-      <p class="card-desc">
-       Butterworth architecture was selected to maximise the natural characteristic of flat passband which 
-       ensures signal of interest reimains undistorted. Opting for a digital implementation was driven by 
-       design flexibility and scalability, through rigorous parameter tuning and iteration.
-      </p>
-      <p class="card-desc">
-        To validate the filter's performance, Signal-to-Noise Ratio (SNR) analysis was opted. It achieved 
-        a 13.35 dB improvement, transitioning from -7.976 dB to a clear +5.372 dB, demonstrating the filter's 
-        ability in suppressing noisy band interference. 
-       </p>
-       <div class="card-desc">
-        Architecture:
-        <ul>
-            <li>fc: 5000 Hz</li>
-            <li>fs: 48000 Hz</li>
-        </ul>
+            </div>
+            <div>
+              
+              <h3 class="acc-full-title">Digital Signal Conditioning: 2nd-Order Butterworth Filter Design and Performance Analysis</h3>
+              <div class="result-box">
+        <div class="result-label">Key result</div>
+        <div class="result-val">+13.35 dB SNR</div>
+        <div class="result-note">−7.98 dB → +5.37 dB</div>
+      </div>
+              <div class="orig-desc"><p class="card-desc">Implemented a digital LPF using a 2nd-Order IIR Butterworth. To validate the filter's performance,a sample ambient audio with chirp signal of (10 kHz - 24 kHz) was adopted to simulate wideband noise interference.</p><p class="card-desc">Butterworth architecture was selected to maximise the natural characteristic of flat passband which ensures signal of interest reimains undistorted. Opting for a digital implementation was driven by design flexibility and scalability, through rigorous parameter tuning and iteration.</p><p class="card-desc">To validate the filter's performance, Signal-to-Noise Ratio (SNR) analysis was opted. It achieved a 13.35 dB improvement, transitioning from -7.976 dB to a clear +5.372 dB, demonstrating the filter's ability in suppressing noisy band interference.</p><div class="card-desc">Architecture: <ul> <li>fc: 5000 Hz</li> <li>fs: 48000 Hz</li> </ul> </div></div>
+              <div class="tags"><span class="tag">Python</span><span class="tag">Signal filtering</span></div>
+              <div class="card-actions"><a href="https://github.com/arya265/arya-winarto/blob/main/Audio%20Noise%20Reduction.ipynb" target="_blank" rel="noopener" class="meta-pill">Go To Code ↗</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-      <div class="tags">
-        <span class="tag">Python</span>
-        <span class="tag">Signal filtering</span>
-      </div>
-      <br>
-      <a href="https://github.com/arya265/arya-winarto/blob/main/Audio%20Noise%20Reduction.ipynb" target="_blank" class="meta-pill">Go To Code ↗</a>
-  </br>
-    </article>
+    -->
 
-    <article class="project-card" data-category="ai-ml">
-        <div class="slideshow-wrap">
-            <div class="w3-slide active">
-              <img src="images/Screenshot 2026-03-21 at 17.44.48.png" alt="First view" />
-            </div>
-            <div class="w3-slide">
-              <img src="images/Group 562.png" alt="Second view" />
-            </div>
-            <div class="w3-slide">
-                <img src="images/Group 563.png" alt="Third view" />
-            </div>
-        <button class="w3-prev" onclick="plusSlides(this, -1)">&#10094;</button>
-        <button class="w3-next" onclick="plusSlides(this,  1)">&#10095;</button>
-        </div>
-      <div class="w3-dots"></div>
-      <h3 class="card-title">Predicting CO2 Emission from an Offshore Gas Turbine Using Deep Learning: A Dense Neural Network Approach</h3>
-      <p class="card-desc">
-        Following the 3-model comparison (Linear Regression, Decision Tree, XGBoost), a Dense Neural Network was introduced to investigate 
-        wether deep learning could further improve predictive accuracy on the CO2 emission task. The 3 layer architecture (64 → 32 → 16 units, ELU activation), 
-        achieved R-Squared = 0.981 and RMSE = 0.494. L1 regularisation was applied accross all hidden layers to suppress redundant feature weights - directly addressing
-        the severe multicolinearity identified in the sensor data and early stopping halts training and peak validation performance.
-      </p>
-      <br>
-      <p class="card-desc">
-        Future work targets edge deployment on low-cost microcontrollers such as the ESP32-P4, eliminating cloud dependency for real-time inference.
-      </p>
-      <div class="tags">
-        <span class="tag">Python</span>
-        <span class="tag">TensorFlow</span>
-        <span class="tag">Keras</span>
-      </div>
-      <br>
-        <a href="https://github.com/arya265/arya-winarto/blob/main/Dense%20Neural%20Network%20on%20CO2%20Emission.ipynb" target="_blank" class="meta-pill">Go To Code ↗</a>
-    </br>
-    </article>
-
-    <article class="project-card" data-category="ai-ml">
+    <div class="acc-item" id="dnn" data-category="ai-ml">
+      <button class="acc-row" aria-expanded="false" aria-controls="dnn-panel">
+        <span class="ov-num">03</span><span class="ov-title">Predicting CO₂ Emission from an Offshore Gas Turbine Using Deep Learning</span>
+        <span class="ov-domain">Machine learning</span><span class="ov-metric">R² 0.981</span>
+        <span class="ov-stack">Python</span><span class="acc-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="acc-panel" id="dnn-panel" role="region">
+        <div class="acc-inner">
+          <div class="acc-body">
+            <div>
       <div class="slideshow-wrap">
-        <div class="w3-slide active">
-          <img src="images/CorrelationMatrix.png" alt="ML comparison" />
-        </div>
-        <div class="w3-slide">
-            <img src="images/tree_plot.png" alt="Second view" />
-        </div>
-        <div class="w3-slide">
-            <img src="images/xgb_plot.png" alt="Third view" />
-        </div>
-        <div class="w3-slide">
-            <img src="images/lnrregr_plot.png" alt="Fourth view" />
-        </div>
-        <button class="w3-prev" onclick="plusSlides(this, -1)">&#10094;</button>
-        <button class="w3-next" onclick="plusSlides(this,  1)">&#10095;</button>
+        <div class="w3-slide active"><img src="images/Screenshot 2026-03-21 at 17.44.48.png" alt="Training curves" loading="lazy" /></div>
+        <div class="w3-slide"><img src="images/Group 562.png" alt="Prediction vs actual" loading="lazy" /></div>
+        <div class="w3-slide"><img src="images/Group 563.png" alt="Residuals" loading="lazy" /></div>
+        <button class="w3-prev" onclick="plusSlides(this, -1)" aria-label="Previous image">&#10094;</button>
+        <button class="w3-next" onclick="plusSlides(this,  1)" aria-label="Next image">&#10095;</button>
       </div>
       <div class="w3-dots"></div>
-      <h3 class="card-title">A CO2 Emission Prediction Machine-Learning-driven Model: XGBoost, Decision Tree, and Linear Regression Accuracy Comparison</h3>
-      <p class="card-desc">
-        Explored 3 different Machine Learning models - XGBoost, Decision Tree, and Linear regression - for
-        CO2 emission prediction from an offshore gas turbinewere (50,371 samples, 9 features). XGBoost and 
-        Decision Tree outperformed Linear Regression by capturing non-linear relationships, achieving RMSE of
-        0.027(R-Squared = 0.999) and 0.122 respectively, compared to Linear Regression's higher error.
-      </p>
-      <p class="card-desc">
-        Linear Regression fails in this case due to multicolinearity (r ≥ 0.95 across most feature pairs),
-        producing high-variance predictions that generalise poorly.
-      </p>
-      <div class="tags">
-        <span class="tag">Python</span>
-        <span class="tag">sklearn</span>
-        <span class="tag">xgboost</span>
+            </div>
+            <div>
+              
+              <h3 class="acc-full-title">Predicting CO₂ Emission from an Offshore Gas Turbine Using Deep Learning: A Dense Neural Network Approach</h3>
+              <div class="result-box">
+        <div class="result-label">Key result</div>
+        <div class="result-val">R² = 0.981</div>
+        <div class="result-note">RMSE = 0.494</div>
       </div>
-    </article>
+              <div class="orig-desc"><p class="card-desc">Following the 3-model comparison (Linear Regression, Decision Tree, XGBoost), a Dense Neural Network was introduced to investigate wether deep learning could further improve predictive accuracy on the CO2 emission task. The 3 layer architecture (64 → 32 → 16 units, ELU activation), achieved R-Squared = 0.981 and RMSE = 0.494. L1 regularisation was applied accross all hidden layers to suppress redundant feature weights - directly addressing the severe multicolinearity identified in the sensor data and early stopping halts training and peak validation performance.</p><p class="card-desc">Future work targets edge deployment on low-cost microcontrollers such as the ESP32-P4, eliminating cloud dependency for real-time inference.</p></div>
+              <div class="tags"><span class="tag">Python</span><span class="tag">TensorFlow</span><span class="tag">Keras</span></div>
+              <div class="card-actions"><a href="https://github.com/arya265/arya-winarto/blob/main/Dense%20Neural%20Network%20on%20CO2%20Emission.ipynb" target="_blank" rel="noopener" class="meta-pill">Go To Code ↗</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <article class="project-card" data-category="signal-processing">
+    <!-- HIDDEN: Project 04 — CO₂ Emission Prediction
+    <div class="acc-item" id="ml-compare" data-category="ai-ml">
+      <button class="acc-row" aria-expanded="false" aria-controls="ml-compare-panel">
+        <span class="ov-num">04</span><span class="ov-title">CO₂ Emission Prediction</span>
+        <span class="ov-domain">Machine learning</span><span class="ov-metric">R² 0.999 (XGBoost)</span>
+        <span class="ov-stack">Python, scikit-learn</span><span class="acc-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="acc-panel" id="ml-compare-panel" role="region">
+        <div class="acc-inner">
+          <div class="acc-body">
+            <div>
       <div class="slideshow-wrap">
-        <div class="w3-slide active">
-          <img src="images/WhatsApp Image 2025-11-18 at 11.37.59.jpeg" alt="Blood pressure prototype" />
-        </div>
-        <button class="w3-prev" onclick="plusSlides(this, -1)">&#10094;</button>
-        <button class="w3-next" onclick="plusSlides(this,  1)">&#10095;</button>
+        <div class="w3-slide active"><img src="images/CorrelationMatrix.png" alt="Feature correlation matrix" loading="lazy" /></div>
+        <div class="w3-slide"><img src="images/tree_plot.png" alt="Decision tree predictions" loading="lazy" /></div>
+        <div class="w3-slide"><img src="images/xgb_plot.png" alt="XGBoost predictions" loading="lazy" /></div>
+        <div class="w3-slide"><img src="images/lnrregr_plot.png" alt="Linear regression predictions" loading="lazy" /></div>
+        <button class="w3-prev" onclick="plusSlides(this, -1)" aria-label="Previous image">&#10094;</button>
+        <button class="w3-next" onclick="plusSlides(this,  1)" aria-label="Next image">&#10095;</button>
       </div>
       <div class="w3-dots"></div>
-      <h3 class="card-title">Non-Invasive Blood Pressure Device: Pneumatic Control & Oscillometric Signal Processing</h3>
-      <p class="card-desc">
-        Led the hardware assembly, schematics, and was responsible for the hardware stack-
-        from the pneumatic circuit design to gates using transistor for automated control based from pressure transducers reading.
-        The device successfully approximated diastolic and systolic blood pressure within a tolerance of ± 13 mmHg. Mean Arterial 
-        Pressure (MAP) was extracted via peak envelope detection; derived systolic and diastolic via emperical amplitude ratios.
-      </p>
-      <p class="card-title">
-        Pipeline:
-        <br>
-        <p class="card-desc">
-        Cuff presurisation to ± 180 mmHg → Holding phase to minimise noise and stabilise readings → Deflation phase to deflate 
-        cuff pressure to ± 30 mmHg → Calculation phase of MAP, Systolic Blood Pressure (SBP), and Diastolic Blood Pressure (DBP).
-        </p>
-        </p>
-      <div class="tags">
-        <span class="tag">C++</span>
-        <span class="tag">Hardware Assembly</span>
+            </div>
+            <div>
+              
+              <h3 class="acc-full-title">CO₂ Emission Prediction: XGBoost, Decision Tree and Linear Regression Accuracy Comparison</h3>
+              <div class="result-box">
+        <div class="result-label">Key result</div>
+        <div class="result-val">XGBoost R² = 0.999</div>
+        <div class="result-note">RMSE 0.027 · Decision Tree RMSE 0.122 · Linear Regression highest error</div>
       </div>
-    </article>
+              <div class="orig-desc"><p class="card-desc">Explored 3 different Machine Learning models - XGBoost, Decision Tree, and Linear regression - for CO2 emission prediction from an offshore gas turbinewere (50,371 samples, 9 features). XGBoost and Decision Tree outperformed Linear Regression by capturing non-linear relationships, achieving RMSE of 0.027(R-Squared = 0.999) and 0.122 respectively, compared to Linear Regression's higher error.</p><p class="card-desc">Linear Regression fails in this case due to multicolinearity (r ≥ 0.95 across most feature pairs), producing high-variance predictions that generalise poorly.</p></div>
+              <div class="tags"><span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">XGBoost</span></div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    -->
+
+    <div class="acc-item" id="nibp" data-category="hardware">
+      <button class="acc-row" aria-expanded="false" aria-controls="nibp-panel">
+        <span class="ov-num">05</span><span class="ov-title">Non-Invasive Blood Pressure Device</span>
+        <span class="ov-domain">Hardware · Biomedical</span><span class="ov-metric">±13 mmHg</span>
+        <span class="ov-stack">C++, Hardware Assembly</span><span class="acc-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="acc-panel" id="nibp-panel" role="region">
+        <div class="acc-inner">
+          <div class="acc-body">
+            <div>
+      <div class="slideshow-wrap">
+        <div class="w3-slide active"><img src="images/WhatsApp Image 2025-11-18 at 11.37.59.jpeg" alt="Blood pressure prototype" loading="lazy" /></div>
+        <button class="w3-prev" onclick="plusSlides(this, -1)" aria-label="Previous image">&#10094;</button>
+        <button class="w3-next" onclick="plusSlides(this,  1)" aria-label="Next image">&#10095;</button>
+      </div>
+      <div class="w3-dots"></div>
+            </div>
+            <div>
+              
+              <h3 class="acc-full-title">Non-Invasive Blood Pressure Device: Pneumatic Control & Oscillometric Signal Processing</h3>
+              <div class="result-box">
+        <div class="result-label">Key result</div>
+        <div class="result-val">±13 mmHg</div>
+        <div class="result-note">SBP / DBP estimation tolerance</div>
+      </div>
+              <div class="orig-desc"><p class="card-desc">Led the hardware assembly, schematics, and was responsible for the hardware stack- from the pneumatic circuit design to gates using transistor for automated control based from pressure transducers reading. The device successfully approximated diastolic and systolic blood pressure within a tolerance of ± 13 mmHg. Mean Arterial Pressure (MAP) was extracted via peak envelope detection; derived systolic and diastolic via emperical amplitude ratios.</p><p class="card-desc" style="color:var(--ink);font-weight:500;margin-bottom:0.3rem">Pipeline:</p><p class="card-desc">Cuff presurisation to ± 180 mmHg → Holding phase to minimise noise and stabilise readings → Deflation phase to deflate cuff pressure to ± 30 mmHg → Calculation phase of MAP, Systolic Blood Pressure (SBP), and Diastolic Blood Pressure (DBP).</p></div>
+              <div class="tags"><span class="tag">C++</span><span class="tag">Hardware Assembly</span></div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -623,33 +687,18 @@
     <span style="color: var(--ink); font-weight: 500;">Skills</span>
     <div class="section-rule"></div>
   </div>
-
-  <div class="skills-strip">
-    <div class="skill-col">
-      <div class="skill-col-label" style="color: var(--ink); font-weight: 500;">Software</div>
-      <div class="tags">
-        <span class="tag">Autodesk Fusion</span>
-        <span class="tag">Blender 3D</span>
-      </div>
-    </div>
-    <div class="skill-col">
-      <div class="skill-col-label" style="color: var(--ink); font-weight: 500;">Methods</div>
-      <div class="tags">
-        <span class="tag">Signal Filtering</span>
-      </div>
-    </div>
-    <div class="skill-col">
-      <div class="skill-col-label" style="color: var(--ink); font-weight: 500;">Fabrication</div>
-      <div class="tags">
-        <span class="tag">FDM printing</span>
-        <span class="tag">PCB assembly</span>
-      </div>
+  <div class="skills-simple">
+    <div class="tags">
+      <span class="tag">Python</span>
+      <span class="tag">C++ (Embedded)</span>
+      <span class="tag">DSP</span>
+      <span class="tag">CAD (Autodesk Fusion & Blender 3D)</span>
     </div>
   </div>
 
   <footer>
     <div>
-      <div class="footer-contact">email me -> arya.g.winarto@gmail.com</div>
+      <div class="footer-contact">email me → <a href="mailto:arya.g.winarto@gmail.com" style="color: inherit;">arya.g.winarto@gmail.com</a></div>
     </div>
     <div class="footer-links">
       <div class="footer-contact" style="color: var(--ink-2); font-weight: 400;">*Fun fact, this site was vibe-coded :D</div>
@@ -700,38 +749,6 @@
       if (dots[i]) dots[i].classList.add('active');
     }
 
-    /* ══════════════════════════════════════════════════
-       PROJECT FILTERING LOGIC
-       ══════════════════════════════════════════════════ */
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const filterableItems = document.querySelectorAll('.featured, .project-card');
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // 1. Remove active class from all buttons, add to clicked
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        // 2. Get the filter category
-        const filterValue = btn.getAttribute('data-filter');
-
-        // 3. Loop through items and show/hide
-        filterableItems.forEach(item => {
-          if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-            item.classList.remove('filter-hidden');
-            
-            // Re-trigger the fade-up animation so it looks clean when cards reappear
-            item.style.animation = 'none';
-            item.offsetHeight; /* trigger reflow */
-            item.style.animation = null;
-            item.classList.add('visible'); 
-          } else {
-            item.classList.add('filter-hidden');
-          }
-        });
-      });
-    });
-
     /* ─── Page transition ─── */
     document.querySelectorAll('nav a:not([target="_blank"])').forEach(function(link) {
       link.addEventListener('click', function(e) {
@@ -760,6 +777,50 @@
     } else {
       cards.forEach(function(c) { c.style.opacity = 1; c.style.transform = 'none'; });
     }
+  
+    /* ─── Auto-number projects (01, 02, 03…) in the order they appear ───
+       Commented-out projects aren't on the page, so they're skipped automatically. */
+    document.querySelectorAll('.acc-item .ov-num').forEach(function(num, i) {
+      num.textContent = String(i + 1).padStart(2, '0');
+    });
+
+    /* ─── Accordion ─── */
+    function setOpen(item, open) {
+      item.classList.toggle('open', open);
+      item.querySelector('.acc-row').setAttribute('aria-expanded', open);
+    }
+    document.querySelectorAll('.acc-item').forEach(function(item) {
+      item.querySelector('.acc-row').addEventListener('click', function() {
+        setOpen(item, !item.classList.contains('open'));
+        history.replaceState(null, '', item.classList.contains('open') ? '#' + item.id : location.pathname);
+      });
+    });
+    // Deep link: index.html#butterworth opens that project
+    if (location.hash) {
+      var target = document.querySelector('.acc-item' + CSS.escape(location.hash).replace('\\#', '#'));
+      if (target) { setOpen(target, true); setTimeout(function(){ target.scrollIntoView(); }, 50); }
+    }
+
+    var expandBtn = document.querySelector('.expand-all');
+    expandBtn.addEventListener('click', function() {
+      var items = document.querySelectorAll('.acc-item:not(.filter-hidden)');
+      var anyClosed = Array.from(items).some(function(i) { return !i.classList.contains('open'); });
+      items.forEach(function(i) { setOpen(i, anyClosed); });
+      expandBtn.textContent = anyClosed ? 'Collapse all' : 'Expand all';
+    });
+
+    /* ─── Filters ─── */
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        var f = btn.getAttribute('data-filter');
+        document.querySelectorAll('.acc-item').forEach(function(item) {
+          item.classList.toggle('filter-hidden', !(f === 'all' || item.getAttribute('data-category') === f));
+        });
+      });
+    });
+
   </script>
 </body>
 </html>
